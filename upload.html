@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tara Rose — Upload Portal</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:#F9E8DF;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.card{background:#fff;border-radius:16px;padding:2.5rem;width:100%;max-width:560px;border:0.5px solid #e8d5cc}
+.logo{text-align:center;margin-bottom:2rem}
+.logo-name{font-size:22px;color:#5C5557;letter-spacing:8px;font-weight:400;text-transform:uppercase}
+.logo-sub{font-size:10px;letter-spacing:6px;color:#9a8a87;margin-top:4px;text-transform:uppercase}
+h2{font-size:13px;font-weight:400;color:#5C5557;margin-bottom:1.5rem;letter-spacing:2px;text-transform:uppercase;text-align:center}
+input,select{width:100%;padding:12px 16px;border:0.5px solid #e8d5cc;border-radius:8px;font-size:14px;color:#5C5557;background:#fdf8f6;margin-bottom:12px;font-family:inherit;display:block}
+input:focus,select:focus{outline:none;border-color:#5C5557}
+.btn{width:100%;padding:12px;background:#5C5557;color:#F9E8DF;border:none;border-radius:8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.btn:hover{background:#4a4344}
+.btn:disabled{background:#c0b0ad;cursor:not-allowed}
+.err{color:#a32d2d;font-size:13px;text-align:center;margin-top:8px}
+#uploadSection{display:none}
+.field-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9a8a87;margin-bottom:6px;display:block}
+.drop-zone{border:1.5px dashed #e8d5cc;border-radius:12px;padding:2.5rem;text-align:center;cursor:pointer;background:#fdf8f6;margin-bottom:1rem}
+.drop-zone:hover{border-color:#5C5557}
+.drop-zone p{color:#9a8a87;font-size:13px;margin-top:8px}
+.status{padding:12px 16px;border-radius:8px;font-size:13px;margin-top:12px;text-align:center;display:none}
+.status.success{background:#E1F5EE;color:#0F6E56;display:block}
+.status.error{background:#FCEBEB;color:#A32D2D;display:block}
+.weeks-list{margin-top:1.5rem;border-top:0.5px solid #e8d5cc;padding-top:1.5rem}
+.week-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fdf8f6;border-radius:8px;margin-bottom:8px;font-size:13px;color:#5C5557}
+.branch-tag{font-size:11px;color:#9a8a87;background:#F9E8DF;padding:2px 8px;border-radius:10px}
+.del-btn{background:none;border:none;color:#c0b0ad;cursor:pointer;font-size:18px;line-height:1}
+.del-btn:hover{color:#a32d2d}
+.weeks-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9a8a87;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-name">Tara Rose</div>
+    <div class="logo-sub">Salon &nbsp;·&nbsp; Upload Portal</div>
+  </div>
+
+  <div id="loginSection">
+    <h2>Admin access</h2>
+    <input type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn" onclick="login()">Enter</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+
+  <div id="uploadSection">
+    <h2>Upload weekly data</h2>
+    <span class="field-label">Branch</span>
+    <select id="branchSelect">
+      <option value="KCA">KCA — Khalifa City</option>
+      <option value="SAA">SAA — Saadiyat</option>
+      <option value="MC">Motor City</option>
+      <option value="AQ">AQ Ladies</option>
+    </select>
+
+    <span class="field-label">Week label</span>
+    <input type="text" id="weekLabel" placeholder="e.g. Week 1 — Mar 1–7">
+
+    <span class="field-label">TSV file (WEEKEND sheet)</span>
+    <div class="drop-zone" onclick="document.getElementById('fileInput').click()" id="dropZone">
+      <p>&#8593; Click to browse or drag &amp; drop</p>
+      <p id="fileName" style="margin-top:6px;font-size:12px;color:#5C5557"></p>
+    </div>
+    <input type="file" id="fileInput" accept=".tsv,.txt">
+
+    <button class="btn" id="uploadBtn" onclick="uploadData()" disabled>Upload to dashboard</button>
+    <div class="status" id="statusMsg"></div>
+
+    <div class="weeks-list" id="weeksList">
+      <div class="weeks-label">Uploaded weeks</div>
+      <div id="weeksItems"><p style="font-size:13px;color:#9a8a87">No data yet.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PASS = 'AbuDhabi2026@';
+const SUPA_URL = 'https://gvijxenafoowajqktqvd.supabase.co';
+const SUPA_KEY = 'sb_publishable_e5o0vPayb-6552oARTeu7Q_KoqfT7xO';
+const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+let selectedFile = null;
+
+function login() {
+  const pw = document.getElementById('pwInput').value;
+  if (pw === PASS) {
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('uploadSection').style.display = 'block';
+    loadWeeks();
+  } else {
+    document.getElementById('loginErr').textContent = 'Incorrect password.';
+  }
+}
+
+document.getElementById('fileInput').addEventListener('change', e => {
+  selectedFile = e.target.files[0];
+  document.getElementById('fileName').textContent = selectedFile ? selectedFile.name : '';
+  document.getElementById('uploadBtn').disabled = !selectedFile;
+});
+
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.style.borderColor='#5C5557'; });
+dz.addEventListener('dragleave', () => { dz.style.borderColor=''; });
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.style.borderColor='';
+  selectedFile = e.dataTransfer.files[0];
+  document.getElementById('fileName').textContent = selectedFile ? selectedFile.name : '';
+  document.getElementById('uploadBtn').disabled = !selectedFile;
+});
+
+function parseTSV(text) {
+  const lines = text.split('\n').map(l => l.split('\t'));
+  const hairStaff = [], beautyStaff = [];
+  let summary = {}, inBeauty = false, hairHeaderFound = false, beautyHeaderFound = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const cols = lines[i].map(c => (c||'').trim());
+    const first = cols[0];
+    if (!first && cols.every(c => !c)) continue;
+
+    if (cols.includes('HAIR SALES TAKE') && !inBeauty) { hairHeaderFound = true; continue; }
+    if (cols.includes('BEAUTY SALES TAKE')) { inBeauty = true; beautyHeaderFound = true; continue; }
+
+    if (first === 'TOTAL CLIENTS') { summary.totalClients = parseInt(cols[1])||0; continue; }
+    if (first === 'HAIR RETAIL SALES') { summary.hairRetail = parseAED(cols[1]); summary.hairRetailPct = parseFloat(cols[2])||0; continue; }
+    if (first === 'TREATMENT SALES') { summary.treatmentSales = parseAED(cols[1]); summary.treatmentPct = parseFloat(cols[2])||0; continue; }
+    if (first === 'COL TAKE AED') { summary.colTake = parseAED(cols[1]); summary.colPct = parseFloat(cols[2])||0; continue; }
+    if (first === 'BEAUTY SALES') { summary.beautySales = parseAED(cols[1]); summary.beautyPct = parseFloat(cols[2])||0; continue; }
+    if (first === 'NET SALON TAKE') { summary.netTake = parseAED(cols[1]); summary.avgBill = parseFloat(cols[2])||0; continue; }
+
+    if (!inBeauty && hairHeaderFound && first && first !== 'STAFF' && first !== 'TOTALS') {
+      const s = parseHairRow(cols);
+      if (s && s.total > 0) hairStaff.push(s);
+    }
+    if (inBeauty && beautyHeaderFound && first && first !== 'STAFF' && first !== 'TOTALS') {
+      const s = parseBeautyRow(cols);
+      if (s && s.total > 0) beautyStaff.push(s);
+    }
+    if (!inBeauty && first === 'TOTALS') {
+      summary.totals = parseHairRow(cols);
+    }
+  }
+  return { hairStaff, beautyStaff, summary };
+}
+
+function parseAED(s) { return parseFloat((s||'').replace(/AED|,|\s/g,'').replace(/[^\d.\-]/g,''))||0; }
+
+function parseHairRow(c) {
+  return {
+    name:c[0], salon:parseInt(c[3])||0, newC:parseInt(c[4])||0,
+    rebooked:parseInt(c[5])||0, rebookPct:parseFloat((c[6]||'').replace('%',''))||0,
+    total:parseInt(c[7])||0, hairSales:parseAED(c[8]), hairSalesNet:parseAED(c[9]),
+    avgBill:parseFloat(c[10])||0, col:parseInt(c[11])||0, colPct:parseFloat((c[12]||'').replace('%',''))||0,
+    retail:parseAED(c[22]), treatments:parseAED(c[29]), totalNet:parseAED(c[31])
+  };
+}
+
+function parseBeautyRow(c) {
+  return {
+    name:c[0], total:parseInt(c[7])||0, beautySales:parseAED(c[8]),
+    beautyNet:parseAED(c[9]), avgBill:parseFloat(c[10])||0,
+    rebookPct:parseFloat((c[6]||'').replace('%',''))||0
+  };
+}
+
+async function uploadData() {
+  const branch = document.getElementById('branchSelect').value;
+  const weekLabel = document.getElementById('weekLabel').value.trim();
+  const btn = document.getElementById('uploadBtn');
+  const statusEl = document.getElementById('statusMsg');
+
+  if (!weekLabel) { alert('Please enter a week label.'); return; }
+  if (!selectedFile) { alert('Please select a TSV file.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Uploading...';
+  statusEl.className = 'status';
+
+  const text = await selectedFile.text();
+  const data = parseTSV(text);
+
+  const { error } = await sb.from('weekly_data').insert({
+    branch, week_label: weekLabel, data
+  });
+
+  if (error) {
+    statusEl.className = 'status error';
+    statusEl.textContent = 'Upload failed: ' + error.message;
+  } else {
+    statusEl.className = 'status success';
+    statusEl.textContent = 'Uploaded successfully!';
+    document.getElementById('weekLabel').value = '';
+    selectedFile = null;
+    document.getElementById('fileName').textContent = '';
+    loadWeeks();
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Upload to dashboard';
+}
+
+async function loadWeeks() {
+  const { data, error } = await sb.from('weekly_data').select('id,branch,week_label,uploaded_at').order('uploaded_at', { ascending: false });
+  const el = document.getElementById('weeksItems');
+  if (error || !data || !data.length) {
+    el.innerHTML = '<p style="font-size:13px;color:#9a8a87">No data uploaded yet.</p>';
+    return;
+  }
+  el.innerHTML = data.map(w => `
+    <div class="week-item">
+      <span>${w.week_label}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="branch-tag">${w.branch}</span>
+        <button class="del-btn" onclick="deleteWeek('${w.id}')" title="Delete">&times;</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function deleteWeek(id) {
+  if (!confirm('Delete this week\'s data?')) return;
+  await sb.from('weekly_data').delete().eq('id', id);
+  loadWeeks();
+}
+</script>
+</body>
+</html>
