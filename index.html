@@ -35,14 +35,17 @@
 
   /* HEADER */
   header {
-    background: var(--dark);
-    padding: 28px 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
+  background: var(--dark);
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+}
 
   .header-left h1 {
     font-family: 'Cormorant Garamond', serif;
@@ -62,17 +65,17 @@
 
   /* FILTERS */
   .filters {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 48px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: flex-end;
-  }
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 48px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+  position: sticky;
+  top: 85px;
+  z-index: 100;
+}
 
   .filter-group { display: flex; flex-direction: column; gap: 6px; }
 
