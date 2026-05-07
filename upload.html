@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Upload — Tara Rose Services Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload – Tara Rose Salon Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
   :root {
-    --gold:    #C9A96E;
-    --gold-lt: #E8D5B0;
-    --dark:    #1A1A1A;
-    --mid:     #2E2E2E;
-    --surface: #242424;
-    --muted:   #888;
-    --text:    #F0EDE8;
-    --green:   #6BAF8D;
-    --red:     #C97B6E;
-    --border:  rgba(201,169,110,0.2);
+    --cream: #FAF7F2;
+    --blush: #C9A99A;
+    --rose: #8B4A4A;
+    --dark: #2C1F1F;
+    --mid: #6B5050;
+    --light: #E8DDD5;
+    --success: #5A8A6A;
+    --error: #B85555;
+    --border: #D9CEC8;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--dark);
-    color: var(--text);
+    background: var(--cream);
+    color: var(--dark);
     min-height: 100vh;
-    padding: 40px 24px;
+    padding: 40px 20px;
   }
 
   header {
@@ -36,97 +35,83 @@
     margin-bottom: 48px;
   }
 
-  header .eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-
   header h1 {
     font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
     font-weight: 300;
-    font-size: clamp(28px, 5vw, 42px);
-    color: var(--text);
-    letter-spacing: 0.02em;
+    color: var(--rose);
+    letter-spacing: 0.04em;
   }
 
   header p {
-    margin-top: 10px;
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 300;
+    font-size: 0.85rem;
+    color: var(--mid);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .container {
-    max-width: 760px;
+    max-width: 680px;
     margin: 0 auto;
   }
 
-  /* UPLOAD CARD */
-  .upload-card {
-    background: var(--surface);
+  .card {
+    background: #fff;
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 36px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
-  .upload-card h2 {
+  .card h2 {
     font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
     font-weight: 400;
-    font-size: 20px;
-    color: var(--gold-lt);
+    color: var(--rose);
     margin-bottom: 24px;
-    padding-bottom: 16px;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
   }
 
-  .instructions {
-    background: rgba(201,169,110,0.06);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 28px;
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.7;
+  .field {
+    margin-bottom: 20px;
   }
 
-  .instructions strong {
-    color: var(--gold);
+  label {
+    display: block;
+    font-size: 0.78rem;
     font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
   }
 
-  .instructions code {
-    font-family: 'Courier New', monospace;
-    background: rgba(201,169,110,0.1);
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-size: 11.5px;
-    color: var(--gold-lt);
+  .file-hint {
+    font-size: 0.75rem;
+    color: var(--blush);
+    margin-top: 4px;
+    font-style: italic;
   }
 
-  /* DROP ZONE */
-  .dropzone {
+  .drop-zone {
     border: 2px dashed var(--border);
     border-radius: 10px;
-    padding: 48px 24px;
+    padding: 40px 24px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
+    background: var(--cream);
     position: relative;
-    margin-bottom: 24px;
   }
 
-  .dropzone:hover, .dropzone.dragover {
-    border-color: var(--gold);
-    background: rgba(201,169,110,0.04);
+  .drop-zone:hover, .drop-zone.drag-over {
+    border-color: var(--blush);
+    background: #FDF5F0;
   }
 
-  .dropzone input[type="file"] {
+  .drop-zone input[type="file"] {
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -135,425 +120,444 @@
     height: 100%;
   }
 
-  .dropzone .icon {
-    font-size: 32px;
-    margin-bottom: 12px;
+  .drop-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
   }
 
-  .dropzone .label {
-    font-size: 14px;
-    color: var(--text);
-    margin-bottom: 6px;
+  .drop-zone p {
+    font-size: 0.85rem;
+    color: var(--mid);
   }
 
-  .dropzone .sublabel {
-    font-size: 12px;
-    color: var(--muted);
+  .drop-zone strong {
+    color: var(--rose);
   }
 
-  /* FILE QUEUE */
-  #file-queue {
+  .file-list {
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 24px;
+    gap: 6px;
   }
 
   .file-item {
-    background: var(--mid);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
     display: flex;
     align-items: center;
-    gap: 14px;
-    animation: fadeIn 0.2s ease;
+    gap: 8px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: var(--dark);
   }
 
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
-
-  .file-item .file-icon { font-size: 20px; flex-shrink: 0; }
-
-  .file-item .file-info { flex: 1; min-width: 0; }
-
-  .file-item .file-name {
-    font-size: 13px;
+  .file-item .badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 20px;
     font-weight: 500;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    letter-spacing: 0.05em;
   }
 
-  .file-item .file-meta {
-    font-size: 11.5px;
-    color: var(--muted);
-    margin-top: 2px;
+  .badge.revenue { background: #EAF4EE; color: var(--success); }
+  .badge.profit { background: #FDE8E8; color: var(--error); }
+  .badge.unknown { background: var(--light); color: var(--mid); }
+
+  .file-item .branch-tag {
+    background: var(--rose);
+    color: #fff;
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
   }
 
-  .file-item .file-parsed {
-    font-size: 11.5px;
-    margin-top: 3px;
-  }
-
-  .file-item .file-parsed.ok { color: var(--green); }
-  .file-item .file-parsed.err { color: var(--red); }
-
-  .file-item .remove-btn {
+  .file-item .remove {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--blush);
+    font-size: 1rem;
+    line-height: 1;
     background: none;
     border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 16px;
-    padding: 4px;
-    flex-shrink: 0;
-    transition: color 0.15s;
+    padding: 0 2px;
   }
 
-  .file-item .remove-btn:hover { color: var(--red); }
+  .file-item .remove:hover { color: var(--error); }
 
-  /* UPLOAD BTN */
-  .upload-btn {
+  .parse-error {
+    color: var(--error);
+    font-size: 0.75rem;
+    font-style: italic;
+  }
+
+  .btn {
+    display: block;
     width: 100%;
     padding: 14px;
-    background: var(--gold);
-    color: var(--dark);
+    background: var(--rose);
+    color: #fff;
     border: none;
     border-radius: 8px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
+    font-size: 0.85rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s;
+    margin-top: 8px;
   }
 
-  .upload-btn:hover:not(:disabled) {
-    background: var(--gold-lt);
-    transform: translateY(-1px);
+  .btn:hover:not(:disabled) { background: var(--dark); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    margin-top: 16px;
+    overflow: hidden;
+    display: none;
   }
 
-  .upload-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+  .progress-bar.show { display: block; }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--rose);
+    border-radius: 4px;
+    transition: width 0.3s;
+    width: 0%;
   }
 
-  /* LOG */
-  .log-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px 36px;
-  }
-
-  .log-card h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: 20px;
-    color: var(--gold-lt);
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  #log-list {
+  .log {
+    margin-top: 16px;
+    max-height: 200px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  #log-list:empty::after {
-    content: 'No uploads yet.';
-    font-size: 13px;
-    color: var(--muted);
+    gap: 4px;
   }
 
   .log-item {
-    background: var(--mid);
-    border-radius: 8px;
-    padding: 12px 16px;
+    font-size: 0.78rem;
+    padding: 6px 10px;
+    border-radius: 6px;
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 12.5px;
+    align-items: center;
+    gap: 6px;
   }
 
-  .log-item .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 3px;
+  .log-item.success { background: #EAF4EE; color: var(--success); }
+  .log-item.error { background: #FDE8E8; color: var(--error); }
+  .log-item.info { background: var(--cream); color: var(--mid); }
+
+  /* History table */
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
   }
 
-  .log-item.success .dot { background: var(--green); }
-  .log-item.error   .dot { background: var(--red); }
-  .log-item.info    .dot { background: var(--gold); }
+  .history-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
 
-  .log-item .log-text { color: var(--text); line-height: 1.5; }
-  .log-item .log-time { margin-left: auto; color: var(--muted); font-size: 11px; flex-shrink: 0; }
+  .history-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--cream);
+    color: var(--dark);
+  }
 
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .history-table tr:last-child td { border-bottom: none; }
+
+  .empty-state {
+    text-align: center;
+    padding: 32px;
+    color: var(--blush);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .month-names {
+    font-size: 0.75rem;
+    color: var(--mid);
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="eyebrow">Tara Rose Ladies Salon</div>
-  <h1>Services Data Upload</h1>
-  <p>Upload Excel files to populate the dashboard. Files are parsed automatically from the filename.</p>
+  <h1>Tara Rose Salon</h1>
+  <p>Data Upload Portal · Top Services</p>
 </header>
 
 <div class="container">
 
-  <div class="upload-card">
-    <h2>Upload Files</h2>
+  <!-- Upload Card -->
+  <div class="card">
+    <h2>Upload Excel Files</h2>
 
-    <div class="instructions">
-      <strong>Filename format required:</strong><br>
-      <code>[BRANCH] Top Services by [Revenue|Profit] [MMYYYY].xls</code><br><br>
-      Examples:<br>
-      <code>KCA Top Services by Revenue 012025.xls</code><br>
-      <code>SAA Top Services by Profit 032026.xls</code><br><br>
-      <strong>Branch codes:</strong> KCA · SAA · MC · AQ<br>
-      You can drop multiple files at once — they'll all be queued.
+    <div class="field">
+      <label>Select Files</label>
+      <p class="file-hint">Filename format: <strong>KCA Top Services by Revenue 012025.xls</strong></p>
+      <p class="file-hint">Branch codes: KCA · SAA · MC · AQ &nbsp;|&nbsp; Type: Revenue or Profit &nbsp;|&nbsp; Date: MMYYYY</p>
     </div>
 
-    <div class="dropzone" id="dropzone">
-      <input type="file" id="file-input" accept=".xls,.xlsx" multiple />
-      <div class="icon">📂</div>
-      <div class="label">Drop Excel files here or click to browse</div>
-      <div class="sublabel">Accepts .xls and .xlsx — multiple files allowed</div>
+    <div class="drop-zone" id="dropZone">
+      <input type="file" id="fileInput" accept=".xls,.xlsx" multiple>
+      <div class="drop-icon">📂</div>
+      <p><strong>Drop files here</strong> or click to browse</p>
+      <p style="margin-top:4px; font-size:0.78rem; color:var(--blush);">Multiple files supported</p>
     </div>
 
-    <div id="file-queue"></div>
+    <div class="file-list" id="fileList"></div>
 
-    <button class="upload-btn" id="upload-btn" disabled>Upload All Files to Supabase</button>
+    <button class="btn" id="uploadBtn" disabled onclick="uploadAll()">Upload to Supabase</button>
+
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="log" id="log"></div>
   </div>
 
-  <div class="log-card">
-    <h2>Upload Log</h2>
-    <div id="log-list"></div>
+  <!-- Upload History -->
+  <div class="card">
+    <h2>Upload History</h2>
+    <div id="historyContainer"><div class="empty-state">Loading...</div></div>
   </div>
 
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────
 const SUPABASE_URL = 'https://syzxjlmhnssddeymzvwc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_36v7iJofatGlPFDj04R65Q_953Wvuqw';
-const TABLE = 'top_services';
+const BRANCHES = ['KCA', 'SAA', 'MC', 'AQ'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-const BRANCH_MAP = { KCA: 'KCA', SAA: 'SAA', MC: 'MC', AQ: 'AQ' };
+let parsedFiles = [];
 
-// ── STATE ────────────────────────────────────────────────
-let fileQueue = []; // { file, parsed: { branch, report_type, month, year }, rows, error }
-
-// ── DOM ──────────────────────────────────────────────────
-const dropzone   = document.getElementById('dropzone');
-const fileInput  = document.getElementById('file-input');
-const queueEl    = document.getElementById('file-queue');
-const uploadBtn  = document.getElementById('upload-btn');
-const logList    = document.getElementById('log-list');
-
-// ── DRAG & DROP ──────────────────────────────────────────
-dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
-dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-dropzone.addEventListener('drop', e => {
+// Drag and drop
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
   e.preventDefault();
-  dropzone.classList.remove('dragover');
+  dropZone.classList.remove('drag-over');
   handleFiles(Array.from(e.dataTransfer.files));
 });
-fileInput.addEventListener('change', () => handleFiles(Array.from(fileInput.files)));
 
-// ── PARSE FILENAME ───────────────────────────────────────
+document.getElementById('fileInput').addEventListener('change', e => {
+  handleFiles(Array.from(e.target.files));
+  e.target.value = '';
+});
+
 function parseFilename(name) {
-  // e.g. "KCA Top Services by Revenue 012025.xls"
+  // Expected: "KCA Top Services by Revenue 012025.xls"
   const base = name.replace(/\.(xls|xlsx)$/i, '').trim();
-  const m = base.match(/^(KCA|SAA|MC|AQ)\s+Top\s+Services\s+by\s+(Revenue|Profit)\s+(\d{2})(\d{4})$/i);
-  if (!m) return null;
-  return {
-    branch:      m[1].toUpperCase(),
-    report_type: m[2].charAt(0).toUpperCase() + m[2].slice(1).toLowerCase(),
-    month:       parseInt(m[3], 10),
-    year:        parseInt(m[4], 10),
-  };
+  let branch = null, reportType = null, month = null, year = null;
+
+  for (const b of BRANCHES) {
+    if (base.toUpperCase().startsWith(b.toUpperCase())) {
+      branch = b; break;
+    }
+  }
+
+  if (/revenue/i.test(base)) reportType = 'revenue';
+  else if (/profit/i.test(base)) reportType = 'profit';
+
+  const dateMatch = base.match(/(\d{2})(\d{4})$/);
+  if (dateMatch) {
+    month = parseInt(dateMatch[1], 10);
+    year = parseInt(dateMatch[2], 10);
+  }
+
+  return { branch, reportType, month, year };
 }
 
-// ── READ EXCEL ───────────────────────────────────────────
-function readExcel(file) {
+function handleFiles(files) {
+  files.forEach(file => {
+    if (parsedFiles.find(f => f.file.name === file.name)) return;
+    const meta = parseFilename(file.name);
+    parsedFiles.push({ file, ...meta });
+  });
+  renderFileList();
+}
+
+function renderFileList() {
+  const container = document.getElementById('fileList');
+  container.innerHTML = '';
+  parsedFiles.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'file-item';
+    const valid = f.branch && f.reportType && f.month && f.year;
+    div.innerHTML = `
+      ${f.branch ? `<span class="branch-tag">${f.branch}</span>` : ''}
+      ${f.reportType ? `<span class="badge ${f.reportType}">${f.reportType}</span>` : ''}
+      <span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${f.file.name}</span>
+      ${f.month && f.year ? `<span class="month-names">${MONTHS[f.month-1]} ${f.year}</span>` : ''}
+      ${!valid ? `<span class="parse-error">⚠ Check filename</span>` : ''}
+      <button class="remove" onclick="removeFile(${i})">✕</button>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById('uploadBtn').disabled = parsedFiles.length === 0;
+}
+
+function removeFile(i) {
+  parsedFiles.splice(i, 1);
+  renderFileList();
+}
+
+function addLog(msg, type = 'info') {
+  const log = document.getElementById('log');
+  const icons = { success: '✓', error: '✗', info: '·' };
+  const div = document.createElement('div');
+  div.className = `log-item ${type}`;
+  div.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+function setProgress(pct) {
+  document.getElementById('progressBar').classList.add('show');
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+async function readExcel(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = e => {
       try {
-        const wb = XLSX.read(e.target.result, { type: 'binary' });
+        const wb = XLSX.read(e.target.result, { type: 'array' });
         const ws = wb.Sheets[wb.SheetNames[0]];
-        const raw = XLSX.utils.sheet_to_json(ws, { defval: null });
-        resolve(raw);
-      } catch (err) { reject(err); }
+        const rows = XLSX.utils.sheet_to_json(ws, { defval: null });
+        resolve(rows);
+      } catch(err) { reject(err); }
     };
     reader.onerror = reject;
-    reader.readAsBinaryString(file);
+    reader.readAsArrayBuffer(file);
   });
 }
 
-// ── HANDLE FILES ─────────────────────────────────────────
-async function handleFiles(files) {
-  for (const file of files) {
-    const parsed = parseFilename(file.name);
-    let rows = null;
-    let error = null;
-
-    if (!parsed) {
-      error = 'Filename format not recognised. Check the naming guide above.';
-    } else {
-      try {
-        const raw = await readExcel(file);
-        // Map columns
-        rows = raw
-          .filter(r => r['#'] && !isNaN(parseInt(r['#'])))
-          .map(r => ({
-            branch:      parsed.branch,
-            report_type: parsed.report_type,
-            month:       parsed.month,
-            year:        parsed.year,
-            rank:        parseInt(r['#']),
-            category:    r['Category']    || null,
-            description: r['Description'] || null,
-            qty:         r['Qty']         != null ? parseInt(r['Qty'])         : null,
-            price:       r['Price']       != null ? parseFloat(r['Price'])     : null,
-            time_hrs:    r['Time (hrs)']  != null ? parseFloat(r['Time (hrs)']): null,
-            revenue:     r['Revenue']     != null ? parseFloat(r['Revenue'])   : null,
-            profit:      r['Profit']      != null ? parseFloat(r['Profit'])    : null,
-          }));
-        if (!rows.length) error = 'No valid rows found in this file.';
-      } catch (err) {
-        error = 'Could not read file: ' + err.message;
-      }
-    }
-
-    fileQueue.push({ file, parsed, rows, error });
-  }
-
-  renderQueue();
-  fileInput.value = '';
-}
-
-// ── RENDER QUEUE ─────────────────────────────────────────
-function renderQueue() {
-  queueEl.innerHTML = '';
-  fileQueue.forEach((item, idx) => {
-    const div = document.createElement('div');
-    div.className = 'file-item';
-
-    const meta = item.parsed
-      ? `Branch: ${item.parsed.branch} · ${item.parsed.report_type} · ${String(item.parsed.month).padStart(2,'0')}/${item.parsed.year}`
-      : 'Could not parse filename';
-
-    const statusClass = item.error ? 'err' : 'ok';
-    const statusText  = item.error
-      ? `⚠ ${item.error}`
-      : `✓ ${item.rows.length} rows ready to upload`;
-
-    div.innerHTML = `
-      <div class="file-icon">📄</div>
-      <div class="file-info">
-        <div class="file-name">${item.file.name}</div>
-        <div class="file-meta">${meta}</div>
-        <div class="file-parsed ${statusClass}">${statusText}</div>
-      </div>
-      <button class="remove-btn" data-idx="${idx}" title="Remove">✕</button>
-    `;
-    queueEl.appendChild(div);
-  });
-
-  queueEl.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      fileQueue.splice(parseInt(btn.dataset.idx), 1);
-      renderQueue();
-    });
-  });
-
-  const hasValid = fileQueue.some(f => !f.error);
-  uploadBtn.disabled = !hasValid;
-}
-
-// ── UPLOAD ────────────────────────────────────────────────
-uploadBtn.addEventListener('click', async () => {
-  const valid = fileQueue.filter(f => !f.error);
-  if (!valid.length) return;
-
-  uploadBtn.disabled = true;
-  uploadBtn.textContent = 'Uploading…';
-
-  for (const item of valid) {
-    addLog('info', `Uploading ${item.file.name}…`);
-    try {
-      // Delete existing rows for same branch/report_type/month/year first
-      const { branch, report_type, month, year } = item.parsed;
-      await supabaseDel({ branch, report_type, month, year });
-
-      // Insert new rows
-      const res = await supabaseInsert(item.rows);
-      if (res.error) throw new Error(res.error.message);
-
-      addLog('success', `✓ ${item.file.name} — ${item.rows.length} rows saved (${branch} · ${report_type} · ${String(month).padStart(2,'0')}/${year})`);
-    } catch (err) {
-      addLog('error', `✗ ${item.file.name} — ${err.message}`);
-    }
-  }
-
-  fileQueue = fileQueue.filter(f => f.error); // keep failed ones
-  renderQueue();
-  uploadBtn.textContent = 'Upload All Files to Supabase';
-  uploadBtn.disabled = !fileQueue.some(f => !f.error);
-});
-
-// ── SUPABASE HELPERS ─────────────────────────────────────
-async function supabaseDel({ branch, report_type, month, year }) {
-  const url = `${SUPABASE_URL}/rest/v1/${TABLE}?branch=eq.${branch}&report_type=eq.${report_type}&month=eq.${month}&year=eq.${year}`;
-  await fetch(url, {
-    method: 'DELETE',
-    headers: headers(),
-  });
-}
-
-async function supabaseInsert(rows) {
-  const url = `${SUPABASE_URL}/rest/v1/${TABLE}`;
-  const res = await fetch(url, {
+async function supabaseUpsert(rows) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/top_services`, {
     method: 'POST',
-    headers: { ...headers(), 'Prefer': 'return=minimal' },
-    body: JSON.stringify(rows),
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(rows)
   });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    return { error: { message: err.message || `HTTP ${res.status}` } };
+    const err = await res.text();
+    throw new Error(err);
   }
-  return { error: null };
 }
 
-function headers() {
-  return {
-    'Content-Type':  'application/json',
-    'apikey':        SUPABASE_KEY,
-    'Authorization': `Bearer ${SUPABASE_KEY}`,
-  };
+async function uploadAll() {
+  const btn = document.getElementById('uploadBtn');
+  btn.disabled = true;
+  document.getElementById('log').innerHTML = '';
+  setProgress(0);
+
+  const valid = parsedFiles.filter(f => f.branch && f.reportType && f.month && f.year);
+  if (valid.length === 0) {
+    addLog('No valid files to upload. Check filenames.', 'error');
+    btn.disabled = false;
+    return;
+  }
+
+  for (let i = 0; i < valid.length; i++) {
+    const f = valid[i];
+    addLog(`Reading ${f.file.name}...`, 'info');
+    try {
+      const rows = await readExcel(f.file);
+      const records = rows.map(r => ({
+        branch: f.branch,
+        report_type: f.reportType,
+        month: f.month,
+        year: f.year,
+        rank: r['#'] || null,
+        category: r['Category'] || null,
+        description: r['Description'] || null,
+        qty: r['Qty'] ? parseInt(r['Qty']) : null,
+        price: r['Price'] ? parseFloat(r['Price']) : null,
+        time_hrs: r['Time (hrs)'] ? parseFloat(r['Time (hrs)']) : null,
+        revenue: r['Revenue'] ? parseFloat(r['Revenue']) : null,
+        profit: r['Profit'] ? parseFloat(r['Profit']) : null,
+      }));
+
+      await supabaseUpsert(records);
+      addLog(`✓ ${f.branch} · ${f.reportType} · ${MONTHS[f.month-1]} ${f.year} — ${records.length} rows saved`, 'success');
+    } catch(err) {
+      addLog(`✗ ${f.file.name}: ${err.message}`, 'error');
+    }
+    setProgress(Math.round(((i + 1) / valid.length) * 100));
+  }
+
+  parsedFiles = [];
+  renderFileList();
+  btn.disabled = false;
+  loadHistory();
 }
 
-// ── LOG HELPER ────────────────────────────────────────────
-function addLog(type, text) {
-  const item = document.createElement('div');
-  item.className = `log-item ${type}`;
-  const now = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  item.innerHTML = `<div class="dot"></div><div class="log-text">${text}</div><div class="log-time">${now}</div>`;
-  logList.prepend(item);
+async function loadHistory() {
+  const container = document.getElementById('historyContainer');
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/top_services?select=branch,report_type,month,year,uploaded_at&order=uploaded_at.desc`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+    );
+    const data = await res.json();
+    if (!data.length) {
+      container.innerHTML = '<div class="empty-state">No uploads yet.</div>';
+      return;
+    }
+
+    // Group by branch + report_type + month + year
+    const seen = new Map();
+    data.forEach(r => {
+      const key = `${r.branch}|${r.report_type}|${r.month}|${r.year}`;
+      if (!seen.has(key)) seen.set(key, r);
+    });
+
+    const rows = Array.from(seen.values()).slice(0, 20);
+    container.innerHTML = `
+      <table class="history-table">
+        <thead><tr>
+          <th>Branch</th><th>Type</th><th>Period</th><th>Uploaded</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(r => `<tr>
+            <td><span class="branch-tag">${r.branch}</span></td>
+            <td><span class="badge ${r.report_type}">${r.report_type}</span></td>
+            <td>${MONTHS[r.month-1]} ${r.year}</td>
+            <td>${new Date(r.uploaded_at).toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch(e) {
+    container.innerHTML = '<div class="empty-state">Could not load history.</div>';
+  }
 }
+
+loadHistory();
 </script>
 </body>
 </html>
