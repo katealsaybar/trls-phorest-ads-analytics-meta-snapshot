@@ -1824,6 +1824,7 @@ function switchMode(mode) {
   document.querySelectorAll('.hnav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('mode-' + mode).classList.add('active');
   document.getElementById('hnav-' + mode).classList.add('active');
+  if (mode === 'data') applyFilters();
 }
 
 // ===== STRATEGY VIEW SWITCHING =====
