@@ -147,6 +147,8 @@ header {
 .main-content {
   flex: 1;
   overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100vh - 52px);
 }
 
 .view { display: none; }
@@ -162,7 +164,7 @@ header {
   gap: 16px;
   align-items: flex-end;
   position: sticky;
-  top: 52px;
+  top: 0;
   z-index: 100;
 }
 
@@ -228,7 +230,7 @@ select:focus { border-color: var(--blush); }
 
 .btn-apply:hover { background: var(--ink); }
 
-.services-content { padding: 24px 40px 36px; max-width: 1200px; }
+.services-content { padding: 36px 40px 36px; max-width: 1200px; }
 
 .stats {
   display: grid;
