@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRS — April 2026 Actuals vs May 2026 Targets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #2D2E37;
+    --ink-soft: #363842;
+    --cream: #FAF8F3;
+    --mineral: #E8E5DD;
+    --teal: #99F6E4;
+    --lime: #EEF3C7;
+    --lavender: #C4B5FD;
+    --coral: #FF9B9B;
+    --rose: #FFD4D9;
+    --ink-text: #2D2E37;
+    --muted: #6B6D7A;
+    --border: rgba(45,46,55,0.12);
+    --positive: #0F6E56;
+    --negative: #A32D2D;
+    --positive-bg: #E1F5EE;
+    --negative-bg: #FCEBEB;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .header-left p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  .header-badge {
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* Group KPIs */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .kpi-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+
+  .kpi-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .kpi-delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
+
+  .delta-up { background: var(--positive-bg); color: var(--positive); }
+  .delta-down { background: var(--negative-bg); color: var(--negative); }
+  .delta-neutral { background: var(--mineral); color: var(--ink-soft); }
+
+  /* Benchmark row */
+  .benchmark-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .benchmark-card {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .benchmark-card .b-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: rgba(250,248,243,0.55);
+    margin-bottom: 6px;
+  }
+
+  .benchmark-card .b-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+
+  .benchmark-card .b-actual {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--cream);
+  }
+
+  .benchmark-card .b-target {
+    font-size: 12px;
+    color: rgba(250,248,243,0.5);
+  }
+
+  .benchmark-card .b-gap {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--coral);
+    margin-top: 2px;
+  }
+
+  .benchmark-card .b-gap.positive { color: var(--teal); }
+
+  /* Salon cards */
+  .salon-section {
+    margin-bottom: 40px;
+  }
+
+  .salon-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .salon-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .salon-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .salon-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  .salon-body {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  /* Revenue summary row */
+  .revenue-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rev-cell {
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+  }
+
+  .rev-cell:last-child { border-right: none; }
+
+  .rev-cell-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .rev-cell-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .rev-cell-target {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Staff table */
+  .staff-table-wrap {
+    overflow-x: auto;
+  }
+
+  .staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  .staff-table thead th {
+    background: #F6F4EF;
+    text-align: left;
+    padding: 9px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .staff-table thead th:not(:first-child) { text-align: right; }
+
+  .staff-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .staff-table tbody tr:last-child { border-bottom: none; }
+  .staff-table tbody tr:hover { background: #F9F8F4; }
+
+  .staff-table td {
+    padding: 9px 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .staff-table td:not(:first-child) { text-align: right; }
+
+  .staff-name {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .staff-role {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .pill-up { background: var(--positive-bg); color: var(--positive); }
+  .pill-down { background: var(--negative-bg); color: var(--negative); }
+  .pill-neutral { background: var(--mineral); color: var(--ink-soft); }
+
+  .bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+
+  .bar-track {
+    width: 60px;
+    height: 4px;
+    background: var(--mineral);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--ink);
+  }
+
+  .bar-fill.over { background: var(--positive); }
+  .bar-fill.under { background: var(--coral); }
+
+  /* Chart section */
+  .chart-section {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .chart-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .chart-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    background: var(--mineral);
+    border-radius: 10px;
+    padding: 4px;
+    width: fit-content;
+  }
+
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tab-btn.active {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .kpi-grid, .benchmark-grid { grid-template-columns: repeat(2, 1fr); }
+    .revenue-row { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Tara Rose Ladies Salon</h1>
+      <p>April 2026 Actuals vs May 2026 Targets &nbsp;·&nbsp; All figures in AED</p>
+    </div>
+    <div class="header-badge">4 Branches</div>
+  </div>
+
+  <!-- Group KPIs -->
+  <div class="section-label">Group Summary</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Group Net Take — April</div>
+      <div class="kpi-value">1.39M</div>
+      <div class="kpi-sub">Services 1.31M · Retail 79.8K</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Group Net Take — May Target</div>
+      <div class="kpi-value">1.88M</div>
+      <div class="kpi-sub">Services 1.76M · Retail 124K</div>
+      <div class="kpi-delta delta-down">+35% needed</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Variance to Target</div>
+      <div class="kpi-value">486K</div>
+      <div class="kpi-sub">Gap to close in May</div>
+      <div class="kpi-delta delta-down">↑ AED 486,471</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Retail at 12% Benchmark</div>
+      <div class="kpi-value">210.8K</div>
+      <div class="kpi-sub">Treatments at 20% → 351.4K</div>
+      <div class="kpi-delta delta-down">Apr retail: 5.7%</div>
+    </div>
+  </div>
+
+  <!-- Benchmark Cards -->
+  <div class="section-label">Group Benchmarks — April Actuals vs Targets</div>
+  <div class="benchmark-grid">
+    <div class="benchmark-card">
+      <div class="b-label">Rebooking %</div>
+      <div class="b-row">
+        <span class="b-actual">37.1%</span>
+        <span class="b-target">target 45%</span>
+      </div>
+      <div class="b-gap">−7.9 pts gap</div>
+    </div>
+    <div class="benchmark-card">
+      <div class="b-label">Treatment %</div>
+      <div class="b-row">
+        <span class="b-actual">8.9%</span>
+        <span class="b-target">target 20%</span>
+      </div>
+      <div class="b-gap">−11.1 pts gap</div>
+    </div>
+    <div class="benchmark-card">
+      <div class="b-label">Retail %</div>
+      <div class="b-row">
+        <span class="b-actual">5.7%</span>
+        <span class="b-target">target 12%</span>
+      </div>
+      <div class="b-gap">−6.3 pts gap</div>
+    </div>
+    <div class="benchmark-card">
+      <div class="b-label">Hair Avg Bill</div>
+      <div class="b-row">
+        <span class="b-actual">AED 554</span>
+        <span class="b-target">target 650</span>
+      </div>
+      <div class="b-gap">−AED 96 gap</div>
+    </div>
+  </div>
+
+  <!-- Revenue Chart -->
+  <div class="chart-section">
+    <div class="chart-title">Branch Revenue — April Actuals vs May Targets</div>
+    <div class="chart-sub">Services + Retail net take by location</div>
+    <div class="chart-legend">
+      <span class="legend-item"><span class="legend-swatch" style="background:#2D2E37;"></span> April actual</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#C4B5FD; border: 1px dashed #9B8ECC;"></span> May target</span>
+    </div>
+    <div style="position:relative; width:100%; height:220px;">
+      <canvas id="branchChart" role="img" aria-label="Bar chart comparing April actuals vs May targets for each branch. Saadiyat: 559K vs 712K. Khalifa City: 472K vs 698K. Al Quoz: 137K vs 203K. Motor City: 224K vs 267K."></canvas>
+    </div>
+  </div>
+
+  <!-- Branch Tabs -->
+  <div class="section-label">Branch Breakdown</div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('saadiyat', this)">Saadiyat</button>
+    <button class="tab-btn" onclick="switchTab('khalifa', this)">Khalifa City</button>
+    <button class="tab-btn" onclick="switchTab('alquoz', this)">Al Quoz</button>
+    <button class="tab-btn" onclick="switchTab('motorcity', this)">Motor City</button>
+  </div>
+
+  <!-- SAADIYAT -->
+  <div id="tab-saadiyat" class="tab-panel active">
+    <div class="salon-section">
+      <div class="salon-header">
+        <div class="salon-dot" style="background:#99F6E4;"></div>
+        <div class="salon-title">Saadiyat</div>
+        <div class="salon-subtitle">Apr Services 529K · Retail 30.3K &nbsp;→&nbsp; May Target: Services 665K · Retail 47.5K</div>
+      </div>
+      <div class="salon-body">
+        <div class="revenue-row">
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Apr</div><div class="rev-cell-value">559,617</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Target</div><div class="rev-cell-value">712,500</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Variance</div><div class="rev-cell-value" style="color:#A32D2D;">+152,883</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Rebooking</div><div class="rev-cell-value">18.5%</div><div class="rev-cell-target">target 45%</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Retail %</div><div class="rev-cell-value">5.4%</div><div class="rev-cell-target">target 12%</div></div>
+        </div>
+        <div class="staff-table-wrap">
+          <table class="staff-table">
+            <thead>
+              <tr>
+                <th>Staff</th>
+                <th>Svc Revenue</th>
+                <th>Tmt Revenue</th>
+                <th>Retail</th>
+                <th>Net Take</th>
+                <th>May Target</th>
+                <th>Gap</th>
+                <th>Rebook</th>
+                <th>Retail %</th>
+              </tr>
+            </thead>
+            <tbody id="saadiyat-staff"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KHALIFA CITY -->
+  <div id="tab-khalifa" class="tab-panel">
+    <div class="salon-section">
+      <div class="salon-header">
+        <div class="salon-dot" style="background:#C4B5FD;"></div>
+        <div class="salon-title">Khalifa City</div>
+        <div class="salon-subtitle">Apr Services 456K · Retail 16.1K &nbsp;→&nbsp; May Target: Services 653K · Retail 45.5K</div>
+      </div>
+      <div class="salon-body">
+        <div class="revenue-row">
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Apr</div><div class="rev-cell-value">472,529</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Target</div><div class="rev-cell-value">698,500</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Variance</div><div class="rev-cell-value" style="color:#A32D2D;">+225,971</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Rebooking</div><div class="rev-cell-value">30.6%</div><div class="rev-cell-target">target 45%</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Retail %</div><div class="rev-cell-value">3.4%</div><div class="rev-cell-target">target 12%</div></div>
+        </div>
+        <div class="staff-table-wrap">
+          <table class="staff-table">
+            <thead>
+              <tr>
+                <th>Staff</th>
+                <th>Svc Revenue</th>
+                <th>Tmt Revenue</th>
+                <th>Retail</th>
+                <th>Net Take</th>
+                <th>May Target</th>
+                <th>Gap</th>
+                <th>Rebook</th>
+                <th>Retail %</th>
+              </tr>
+            </thead>
+            <tbody id="khalifa-staff"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AL QUOZ -->
+  <div id="tab-alquoz" class="tab-panel">
+    <div class="salon-section">
+      <div class="salon-header">
+        <div class="salon-dot" style="background:#EEF3C7;"></div>
+        <div class="salon-title">Al Quoz</div>
+        <div class="salon-subtitle">Apr Services 121.8K · Retail 15.7K &nbsp;→&nbsp; May Target: Services 188K · Retail 15K</div>
+      </div>
+      <div class="salon-body">
+        <div class="revenue-row">
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Apr</div><div class="rev-cell-value">137,494</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Target</div><div class="rev-cell-value">203,000</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Variance</div><div class="rev-cell-value" style="color:#A32D2D;">+65,506</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Rebooking</div><div class="rev-cell-value" style="color:#0F6E56;">58.9%</div><div class="rev-cell-target">target 45% ✓</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Retail %</div><div class="rev-cell-value">11.4%</div><div class="rev-cell-target">target 12% (close!)</div></div>
+        </div>
+        <div class="staff-table-wrap">
+          <table class="staff-table">
+            <thead>
+              <tr>
+                <th>Staff</th>
+                <th>Svc Revenue</th>
+                <th>Tmt Revenue</th>
+                <th>Retail</th>
+                <th>Net Take</th>
+                <th>May Target</th>
+                <th>Gap</th>
+                <th>Rebook</th>
+                <th>Retail %</th>
+              </tr>
+            </thead>
+            <tbody id="alquoz-staff"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTOR CITY -->
+  <div id="tab-motorcity" class="tab-panel">
+    <div class="salon-section">
+      <div class="salon-header">
+        <div class="salon-dot" style="background:#FF9B9B;"></div>
+        <div class="salon-title">Motor City</div>
+        <div class="salon-subtitle">Apr Services 207.2K · Retail 17.7K &nbsp;→&nbsp; May Target: Services 251K · Retail 16K</div>
+      </div>
+      <div class="salon-body">
+        <div class="revenue-row">
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Apr</div><div class="rev-cell-value">224,888</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Net Take Target</div><div class="rev-cell-value">267,000</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Variance</div><div class="rev-cell-value" style="color:#A32D2D;">+42,112</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Rebooking</div><div class="rev-cell-value">40.5%</div><div class="rev-cell-target">target 45% (close)</div></div>
+          <div class="rev-cell"><div class="rev-cell-label">Hair Avg Bill</div><div class="rev-cell-value" style="color:#0F6E56;">AED 785</div><div class="rev-cell-target">target 650 ✓</div></div>
+        </div>
+        <div class="staff-table-wrap">
+          <table class="staff-table">
+            <thead>
+              <tr>
+                <th>Staff</th>
+                <th>Svc Revenue</th>
+                <th>Tmt Revenue</th>
+                <th>Retail</th>
+                <th>Net Take</th>
+                <th>May Target</th>
+                <th>Gap</th>
+                <th>Rebook</th>
+                <th>Retail %</th>
+              </tr>
+            </thead>
+            <tbody id="motorcity-staff"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Tara Rose Ladies Salon &nbsp;·&nbsp; April 2026 Actuals vs May 2026 Targets</span>
+    <span>Prepared by Kate Alsaybar, Operations & Performance Manager</span>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const fmt = n => n == null || n === '—' ? '—' : Number(n).toLocaleString('en-AE', {maximumFractionDigits: 0});
+const pct = n => n == null || isNaN(n) ? '—' : (n * 100).toFixed(1) + '%';
+const pill = (val, isGood) => {
+  const cls = isGood ? 'pill-up' : 'pill-down';
+  const sym = isGood ? '↑' : '↓';
+  return `<span class="pill ${cls}">${sym} ${Math.abs(val).toLocaleString('en-AE', {maximumFractionDigits: 0})}</span>`;
+};
+const rebookPill = (v) => {
+  const pctVal = (v * 100).toFixed(0);
+  const good = v >= 0.45;
+  return `<span class="pill ${good ? 'pill-up' : 'pill-down'}">${pctVal}%</span>`;
+};
+const retailPill = (v) => {
+  const pctVal = (v * 100).toFixed(1);
+  const good = v >= 0.12;
+  return `<span class="pill ${good ? 'pill-up' : 'pill-down'}">${pctVal}%</span>`;
+};
+
+function buildRow(s) {
+  const gap = s.targetTake - s.netTake;
+  const gapCell = pill(gap, false);
+  return `<tr>
+    <td><span class="staff-name">${s.name}</span><span class="staff-role">${s.role}</span></td>
+    <td>${fmt(s.svc)}</td>
+    <td>${fmt(s.tmt) === '0' ? '—' : fmt(s.tmt)}</td>
+    <td>${fmt(s.retail) === '0' ? '—' : fmt(s.retail)}</td>
+    <td><strong>${fmt(s.netTake)}</strong></td>
+    <td style="color:var(--muted)">${fmt(s.targetTake)}</td>
+    <td>${gapCell}</td>
+    <td>${rebookPill(s.rebook)}</td>
+    <td>${retailPill(s.retailPct)}</td>
+  </tr>`;
+}
+
+const saadiyatStaff = [
+  {name:'Emma', role:'Hair', svc:68114, tmt:16696, retail:11001, netTake:95811, targetTake:99000, rebook:0.422, retailPct:0.11482},
+  {name:'Jeida', role:'Hair', svc:75920, tmt:9519, retail:2199, netTake:87638, targetTake:89000, rebook:0.15, retailPct:0.025092},
+  {name:'Danika', role:'Hair', svc:59527, tmt:3024, retail:2202, netTake:64753, targetTake:75000, rebook:0.338, retailPct:0.034006},
+  {name:'Holly', role:'Hair', svc:71494, tmt:3482, retail:2645, netTake:77621, targetTake:78000, rebook:0.125, retailPct:0.034076},
+  {name:'Molly', role:'Hair', svc:40377, tmt:3331, retail:2273, netTake:45980, targetTake:59000, rebook:0.317, retailPct:0.049435},
+  {name:'Tammy', role:'Hair', svc:19564, tmt:2430, retail:330, netTake:22325, targetTake:58000, rebook:0.143, retailPct:0.014782},
+  {name:'April', role:'Hair', svc:35141, tmt:5024, retail:1270, netTake:41436, targetTake:59500, rebook:0.292, retailPct:0.03065},
+  {name:'Shelley', role:'Hair', svc:4496, tmt:590, retail:0, netTake:5087, targetTake:21500, rebook:0, retailPct:0},
+  {name:'Eds', role:'Hair', svc:32017, tmt:4791, retail:1395, netTake:38203, targetTake:49000, rebook:0.08, retailPct:0.036515},
+  {name:'Beth', role:'Hair', svc:3711, tmt:0, retail:0, netTake:3711, targetTake:18500, rebook:0, retailPct:0},
+  {name:'Helen', role:'Hair', svc:5652, tmt:1538, retail:282, netTake:7472, targetTake:7500, rebook:0.028, retailPct:0.037741},
+  {name:'Myra', role:'Hair', svc:6998, tmt:1310, retail:0, netTake:8307, targetTake:12500, rebook:0.023, retailPct:0},
+  {name:'Judy', role:'Beauty', svc:8533, tmt:0, retail:0, netTake:8533, targetTake:13500, rebook:0.204, retailPct:0},
+  {name:'Reda', role:'Beauty', svc:13141, tmt:0, retail:129, netTake:13269, targetTake:15500, rebook:0.031, retailPct:0.009722},
+  {name:'Mona', role:'Beauty', svc:16332, tmt:0, retail:2163, netTake:18495, targetTake:21500, rebook:0.162, retailPct:0.116951},
+  {name:'Sania', role:'Beauty', svc:16678, tmt:0, retail:848, netTake:17526, targetTake:19000, rebook:0.029, retailPct:0.048385},
+  {name:'Arnlyn', role:'Beauty', svc:0, tmt:0, retail:0, netTake:0, targetTake:15500, rebook:0, retailPct:0},
+];
+
+const khalifaStaff = [
+  {name:'Sophie', role:'Hair', svc:33388, tmt:6688, retail:1485, netTake:41561, targetTake:65000, rebook:0.667, retailPct:0.035731},
+  {name:'Kate', role:'Hair', svc:74300, tmt:10000, retail:2749, netTake:87048, targetTake:90000, rebook:0.311, retailPct:0.03158},
+  {name:'Tegan', role:'Hair', svc:75075, tmt:16519, retail:2639, netTake:94234, targetTake:90000, rebook:0.522, retailPct:0.028005},
+  {name:'Nikki', role:'Hair', svc:44094, tmt:6519, retail:1876, netTake:52490, targetTake:77000, rebook:0.635, retailPct:0.03574},
+  {name:'Kylie', role:'Hair', svc:55512, tmt:2976, retail:1962, netTake:60450, targetTake:66000, rebook:0.286, retailPct:0.032457},
+  {name:'Katie', role:'Hair', svc:43266, tmt:3338, retail:706, netTake:47310, targetTake:59000, rebook:0.181, retailPct:0.014923},
+  {name:'Lizanie', role:'Hair', svc:5348, tmt:429, retail:229, netTake:6005, targetTake:58000, rebook:0, retailPct:0.038135},
+  {name:'May', role:'Hair', svc:30595, tmt:6375, retail:1420, netTake:38390, targetTake:44000, rebook:0.258, retailPct:0.036989},
+  {name:'Irlyn', role:'Hair', svc:17274, tmt:2386, retail:544, netTake:20204, targetTake:39000, rebook:0.1, retailPct:0.026925},
+  {name:'Hazel May', role:'Hair', svc:4256, tmt:389, retail:0, netTake:4645, targetTake:18000, rebook:0, retailPct:0},
+  {name:'Mevil', role:'Hair', svc:1970, tmt:429, retail:0, netTake:2398, targetTake:18000, rebook:0, retailPct:0},
+  {name:'Mimi', role:'Beauty', svc:11415, tmt:0, retail:348, netTake:11763, targetTake:44500, rebook:0.09, retailPct:0.029584},
+  {name:'Grace', role:'Beauty', svc:13081, tmt:0, retail:90, netTake:13171, targetTake:14500, rebook:0.205, retailPct:0.006833},
+  {name:'Kim', role:'Beauty', svc:12305, tmt:0, retail:0, netTake:12305, targetTake:16000, rebook:0.208, retailPct:0},
+  {name:'Stella', role:'Beauty', svc:0, tmt:0, retail:0, netTake:0, targetTake:16500, rebook:0, retailPct:0},
+];
+
+const alquozStaff = [
+  {name:'Ruth', role:'Hair', svc:58079, tmt:6905, retail:2969, netTake:67952, targetTake:64000, rebook:0.833, retailPct:0.043693},
+  {name:'Zandri', role:'Hair', svc:36199, tmt:3106, retail:2832, netTake:42137, targetTake:54000, rebook:0.585, retailPct:0.067209},
+  {name:'Samantha', role:'Hair', svc:11217, tmt:0, retail:214, netTake:11431, targetTake:13000, rebook:0.357, retailPct:0.018721},
+  {name:'Ibrahim', role:'Hair', svc:12538, tmt:3462, retail:1778, netTake:17778, targetTake:27000, rebook:0.625, retailPct:0.100011},
+  {name:'Shelley', role:'Hair', svc:13614, tmt:1675, retail:137, netTake:15427, targetTake:25000, rebook:0.2, retailPct:0.008881},
+  {name:'Mary Joy', role:'Beauty', svc:7865, tmt:0, retail:0, netTake:7865, targetTake:12500, rebook:0.235, retailPct:0},
+  {name:'Shine', role:'Beauty', svc:5228, tmt:0, retail:129, netTake:5356, targetTake:7500, rebook:0.258, retailPct:0.024085},
+];
+
+const motorcityStaff = [
+  {name:'Ashleigh', role:'Hair', svc:44112, tmt:3566, retail:2561, netTake:50239, targetTake:53000, rebook:0.519, retailPct:0.050976},
+  {name:'Robyn', role:'Hair', svc:37679, tmt:3114, retail:269, netTake:41062, targetTake:51000, rebook:0.547, retailPct:0.006551},
+  {name:'Elise', role:'Hair', svc:32957, tmt:3224, retail:482, netTake:36663, targetTake:46000, rebook:0.293, retailPct:0.013147},
+  {name:'Alan', role:'Hair', svc:48361, tmt:4976, retail:1325, netTake:54662, targetTake:60000, rebook:0.446, retailPct:0.02424},
+  {name:'Ibrahim', role:'Hair', svc:9601, tmt:1897, retail:1168, netTake:12665, targetTake:28500, rebook:0.25, retailPct:0.092223},
+  {name:'Samantha', role:'Hair', svc:14339, tmt:571, retail:716, netTake:15626, targetTake:28500, rebook:0.333, retailPct:0.045821},
+];
+
+document.getElementById('saadiyat-staff').innerHTML = saadiyatStaff.map(buildRow).join('');
+document.getElementById('khalifa-staff').innerHTML = khalifaStaff.map(buildRow).join('');
+document.getElementById('alquoz-staff').innerHTML = alquozStaff.map(buildRow).join('');
+document.getElementById('motorcity-staff').innerHTML = motorcityStaff.map(buildRow).join('');
+
+// Branch chart
+new Chart(document.getElementById('branchChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Saadiyat', 'Khalifa City', 'Al Quoz', 'Motor City'],
+    datasets: [
+      {
+        label: 'April Actual',
+        data: [559617, 472529, 137494, 224888],
+        backgroundColor: '#2D2E37',
+        borderRadius: 4,
+      },
+      {
+        label: 'May Target',
+        data: [712500, 698500, 203000, 267000],
+        backgroundColor: '#C4B5FD',
+        borderRadius: 4,
+        borderDash: [4,2],
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ' AED ' + ctx.raw.toLocaleString('en-AE')
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { font: { family: 'Inter', size: 11 }, color: '#6B6D7A' }
+      },
+      y: {
+        grid: { color: 'rgba(45,46,55,0.06)' },
+        ticks: {
+          font: { family: 'Inter', size: 11 },
+          color: '#6B6D7A',
+          callback: v => 'AED ' + (v/1000).toFixed(0) + 'K'
+        }
+      }
+    }
+  }
+});
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
