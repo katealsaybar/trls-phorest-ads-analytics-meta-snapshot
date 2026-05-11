@@ -119,6 +119,13 @@ header {
   color: var(--lav);
 }
 
+/* ✦ NEW — Apr vs May Targets button active state */
+.hnav-btn.targets.active {
+  background: rgba(255,155,155,0.13);
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
 .hnav-dot {
   width: 6px;
   height: 6px;
@@ -603,7 +610,7 @@ header {
   .header-nav { display: none; }
   .strategy-sidebar { display: none; }
   .kpi-grid, .mix-grid, .levers-grid { grid-template-columns: 1fr; }
-  .branch-grid { grid-template-columns: 1fr; }
+  .branch-grid { grid-column: 1fr; }
   .strat-phases { display: none; }
 }
 
@@ -1051,6 +1058,10 @@ tr:hover td { background: var(--cream); }
     <button class="hnav-btn strategy active" id="hnav-strategy" onclick="switchMode('strategy')">
       <span class="hnav-dot"></span>2026 Growth Strategy
     </button>
+    <!-- ✦ NEW BUTTON -->
+    <button class="hnav-btn targets" id="hnav-targets" onclick="switchMode('targets')">
+      <span class="hnav-dot"></span>Apr vs May Targets
+    </button>
     <button class="hnav-btn" id="hnav-data" onclick="switchMode('data')">
       <span class="hnav-dot"></span>Phorest &amp; Ads Data
     </button>
@@ -1058,6 +1069,7 @@ tr:hover td { background: var(--cream); }
   <div class="header-meta">Prepared for Morph kickoff<br>May 12, 2026</div>
 </header>
 
+<!-- ===== DATA MODE ===== -->
 <div class="mode-panel" id="mode-data">
 <div class="app-body">
 
@@ -1070,7 +1082,7 @@ tr:hover td { background: var(--cream); }
 
     <div class="sidebar-section">Paid Media</div>
     <div class="nav-item" onclick="switchView('ads')" id="nav-ads">
-      <span class="nav-dot"></span> Google Ads & Analytics
+      <span class="nav-dot"></span> Google Ads &amp; Analytics
     </div>
     <div class="nav-item" onclick="switchView('meta')" id="nav-meta">
       <span class="nav-dot"></span> Meta Ads
@@ -1259,7 +1271,7 @@ tr:hover td { background: var(--cream); }
       </div><!-- end ads-content -->
     </div><!-- end view-ads -->
 
-<!-- ===== VIEW: META ADS ===== -->
+    <!-- ===== VIEW: META ADS ===== -->
     <div class="view" id="view-meta">
       <div class="filters-bar" style="padding: 12px 24px; font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; font-style: italic;">
         📌 Aggregated data: Jan–Apr 2026. Month-level filtering coming once data source is connected.
@@ -1270,6 +1282,11 @@ tr:hover td { background: var(--cream); }
   </div><!-- end main-content -->
 </div><!-- end app-body -->
 </div><!-- end mode-data -->
+
+<!-- ===== TARGETS MODE ✦ NEW ===== -->
+<div class="mode-panel" id="mode-targets">
+  <iframe src="Apr_vs_May_2026_targets.html" style="width:100%;height:calc(100vh - 52px);border:none;display:block;"></iframe>
+</div>
 
 <!-- ===== STRATEGY MODE ===== -->
 <div class="mode-panel active" id="mode-strategy">
@@ -1781,9 +1798,6 @@ function switchStratView(view) {
   document.getElementById('sview-' + view).classList.add('active');
   document.getElementById('snav-' + view).classList.add('active');
 }
-
-// only load data when switching to data mode
 </script>
 </body>
 </html>
->
