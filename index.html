@@ -79,6 +79,534 @@ header {
   text-align: right;
 }
 
+.header-nav {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.hnav-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: rgba(250,248,243,0.5);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.hnav-btn:hover {
+  background: rgba(255,255,255,0.07);
+  color: rgba(250,248,243,0.85);
+}
+
+.hnav-btn.active {
+  background: rgba(153,246,228,0.13);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.hnav-btn.strategy.active {
+  background: rgba(196,181,253,0.13);
+  border-color: var(--lav);
+  color: var(--lav);
+}
+
+.hnav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* Phorest source badge */
+.phorest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-t);
+  background: rgba(153,246,228,0.15);
+  border: 1px solid rgba(153,246,228,0.4);
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.phorest-badge::before {
+  content: '●';
+  font-size: 0.5rem;
+}
+
+/* Mode containers */
+.mode-panel { display: none; }
+.mode-panel.active { display: flex; flex: 1; }
+
+/* Strategy panel layout */
+#mode-strategy {
+  flex-direction: column;
+}
+
+.strategy-sidebar {
+  width: 220px;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.strategy-main {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100vh - 52px);
+}
+
+/* Strategy content styles */
+.strat-content {
+  padding: 36px 40px;
+  max-width: 1200px;
+}
+
+.strat-section-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.45;
+  margin: 2rem 0 0.75rem;
+  display: block;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 3px;
+  width: fit-content;
+}
+
+.strat-section-label:first-child { margin-top: 0; }
+
+.strat-hero {
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.strat-hero-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.strat-hero-text p {
+  font-size: 0.8rem;
+  color: rgba(250,248,243,0.55);
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.strat-phases {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.strat-phase {
+  text-align: center;
+  padding: 0 18px;
+  position: relative;
+}
+
+.strat-phase:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(250,248,243,0.2);
+  font-size: 1rem;
+}
+
+.strat-phase-num {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,248,243,0.35);
+  margin-bottom: 2px;
+}
+
+.strat-phase-rev {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--teal);
+  line-height: 1;
+}
+
+.strat-phase.current .strat-phase-rev { color: #fff; }
+
+.strat-phase-label {
+  font-size: 0.62rem;
+  color: rgba(250,248,243,0.4);
+  margin-top: 3px;
+}
+
+/* KPI cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.kpi-card.teal::before { background: var(--teal); }
+.kpi-card.lav::before { background: var(--lav); }
+.kpi-card.coral::before { background: var(--coral); }
+.kpi-card.lime::before { background: var(--lime); }
+.kpi-card.rose::before { background: var(--rose-acc); }
+.kpi-card.ink::before { background: var(--ink); }
+
+.kpi-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 6px;
+}
+
+.kpi-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.kpi-sub {
+  font-size: 0.7rem;
+  color: var(--blush);
+}
+
+/* Service mix */
+.mix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mix-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.mix-pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.mix-label { font-size: 0.75rem; color: var(--mid); margin-top: 4px; }
+.mix-aed { font-size: 0.8rem; font-weight: 500; color: var(--ink); margin-top: 6px; }
+
+/* Levers */
+.levers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.lever-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.lever-num {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--blush);
+  margin-bottom: 5px;
+}
+
+.lever-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.lever-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lever-items li {
+  font-size: 0.75rem;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--cream);
+  display: flex;
+  gap: 6px;
+}
+
+.lever-items li::before {
+  content: '→';
+  color: var(--blush);
+  flex-shrink: 0;
+}
+
+.lever-items li:last-child { border-bottom: none; }
+
+/* Branch cards */
+.branch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.branch-strat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.branch-strat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+}
+
+.branch-strat-card.kca::before { background: var(--coral); }
+.branch-strat-card.saa::before { background: var(--teal); }
+.branch-strat-card.mc::before { background: var(--lav); }
+.branch-strat-card.aq::before { background: var(--lime); }
+
+.branch-strat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.branch-strat-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.branch-strat-sub {
+  font-size: 0.65rem;
+  color: var(--blush);
+  margin-top: 2px;
+}
+
+.branch-focus-pill {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  color: var(--mid);
+  white-space: nowrap;
+}
+
+.branch-baseline-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.bbl {
+  background: var(--cream);
+  border-radius: 7px;
+  padding: 9px 10px;
+}
+
+.bbl-label { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blush); margin-bottom: 2px; }
+.bbl-val { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+
+.branch-gaps {
+  border-top: 1px solid var(--mineral);
+  padding-top: 12px;
+  margin-bottom: 12px;
+}
+
+.gap-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 0.78rem;
+  border-bottom: 1px solid var(--cream);
+}
+
+.gap-row:last-child { border-bottom: none; }
+.gap-label { color: var(--mid); }
+.gap-val { font-weight: 500; color: #993C1D; }
+.gap-val.good { color: var(--teal-t); }
+
+.branch-priorities {
+  border-top: 1px solid var(--mineral);
+  padding-top: 12px;
+}
+
+.bp-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blush);
+  margin-bottom: 7px;
+}
+
+.bp-item {
+  display: flex;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--ink);
+  line-height: 1.5;
+  padding: 3px 0;
+}
+
+.bp-n {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Strategy sidebar */
+.strat-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  font-size: 0.82rem;
+  color: var(--mid);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.strat-nav-item:hover { background: var(--cream); color: var(--ink); }
+
+.strat-nav-item.active {
+  background: var(--cream);
+  color: var(--ink);
+  border-left-color: var(--lav-t);
+  font-weight: 500;
+}
+
+.strat-nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.strat-nav-item.active .strat-nav-dot { background: var(--lav-t); }
+
+.strat-view { display: none; }
+.strat-view.active { display: block; }
+
+/* Golden rule banner */
+.golden-rule {
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 10px;
+  padding: 14px 20px;
+  font-size: 0.82rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.golden-rule::before {
+  content: '✦';
+  color: var(--teal);
+  font-style: normal;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .header-nav { display: none; }
+  .strategy-sidebar { display: none; }
+  .kpi-grid, .mix-grid, .levers-grid { grid-template-columns: 1fr; }
+  .branch-grid { grid-template-columns: 1fr; }
+  .strat-phases { display: none; }
+}
+
 /* LAYOUT */
 .app-body {
   display: flex;
@@ -519,16 +1047,25 @@ tr:hover td { background: var(--cream); }
     <h1>Tara Rose Ladies Salon</h1>
     <p>Performance Dashboard · Jan – Apr 2026</p>
   </div>
+  <div class="header-nav">
+    <button class="hnav-btn active" id="hnav-data" onclick="switchMode('data')">
+      <span class="hnav-dot"></span>Phorest &amp; Ads Data
+    </button>
+    <button class="hnav-btn strategy" id="hnav-strategy" onclick="switchMode('strategy')">
+      <span class="hnav-dot"></span>2026 Growth Strategy
+    </button>
+  </div>
   <div class="header-meta">Prepared for Morph kickoff<br>May 12, 2026</div>
 </header>
 
+<div class="mode-panel active" id="mode-data">
 <div class="app-body">
 
   <!-- SIDEBAR -->
   <nav class="sidebar">
     <div class="sidebar-section">Salon Data</div>
     <div class="nav-item active" onclick="switchView('services')" id="nav-services">
-      <span class="nav-dot"></span> Top Services Snapshot
+      <span class="nav-dot"></span> Top Services Snapshot <span class="phorest-badge">Phorest</span>
     </div>
 
     <div class="sidebar-section">Paid Media</div>
@@ -580,6 +1117,9 @@ tr:hover td { background: var(--cream); }
           </select>
         </div>
         <button class="btn-apply" onclick="applyFilters()">Apply</button>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--mid);">
+          Source: <span class="phorest-badge" style="margin-left:0;">Phorest POS Data</span>
+        </div>
       </div>
       <div class="services-content">
         <div id="dashboard"><div class="loading">Loading data...</div></div>
@@ -761,6 +1301,301 @@ tr:hover td { background: var(--cream); }
 
   </div><!-- end main-content -->
 </div><!-- end app-body -->
+</div><!-- end mode-data -->
+
+<!-- ===== STRATEGY MODE ===== -->
+<div class="mode-panel" id="mode-strategy">
+  <nav class="strategy-sidebar">
+    <div class="sidebar-section">Growth Plan</div>
+    <div class="strat-nav-item active" id="snav-targets" onclick="switchStratView('targets')">
+      <span class="strat-nav-dot"></span> Group Targets &amp; KPIs
+    </div>
+    <div class="strat-nav-item" id="snav-branches" onclick="switchStratView('branches')">
+      <span class="strat-nav-dot"></span> Branch Breakdown
+    </div>
+  </nav>
+
+  <div class="strategy-main">
+
+    <!-- GROUP TARGETS VIEW -->
+    <div class="strat-view active" id="sview-targets">
+      <div class="strat-content">
+
+        <div class="strat-hero">
+          <div class="strat-hero-text">
+            <h2>2026 Growth Strategy</h2>
+            <p>"Build a simple, repeatable operating system that protects the brand, grows careers, and makes revenue predictable."</p>
+          </div>
+          <div class="strat-phases">
+            <div class="strat-phase">
+              <div class="strat-phase-num">Floor</div>
+              <div class="strat-phase-rev">1.8M</div>
+              <div class="strat-phase-label">Non-negotiable</div>
+            </div>
+            <div class="strat-phase current">
+              <div class="strat-phase-num">Phase 1 ←</div>
+              <div class="strat-phase-rev">2.0M</div>
+              <div class="strat-phase-label">Make Consistent</div>
+            </div>
+            <div class="strat-phase">
+              <div class="strat-phase-num">Phase 2</div>
+              <div class="strat-phase-rev">2.3M</div>
+              <div class="strat-phase-label">Scale What Works</div>
+            </div>
+            <div class="strat-phase">
+              <div class="strat-phase-num">Phase 3</div>
+              <div class="strat-phase-rev">3.0M</div>
+              <div class="strat-phase-label">Volume + Value</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="golden-rule">"If it doesn't move a KPI, it's not a priority."</div>
+
+        <span class="strat-section-label">Phase 1 Scoreboard — Weekly KPIs</span>
+        <div class="kpi-grid">
+          <div class="kpi-card teal">
+            <div class="kpi-label">Treatments</div>
+            <div class="kpi-value">20%</div>
+            <div class="kpi-sub">of Hair Revenue</div>
+          </div>
+          <div class="kpi-card coral">
+            <div class="kpi-label">Retail</div>
+            <div class="kpi-value">12%</div>
+            <div class="kpi-sub">of Total Revenue</div>
+          </div>
+          <div class="kpi-card ink">
+            <div class="kpi-label">Hair Avg Bill</div>
+            <div class="kpi-value">≥650</div>
+            <div class="kpi-sub">Current avg: ~695 AED ✓</div>
+          </div>
+          <div class="kpi-card lav">
+            <div class="kpi-label">Beauty Avg Bill</div>
+            <div class="kpi-value">200</div>
+            <div class="kpi-sub">AED — excluded from price rise</div>
+          </div>
+          <div class="kpi-card lime">
+            <div class="kpi-label">Rebooking — Hair</div>
+            <div class="kpi-value">45%</div>
+            <div class="kpi-sub">Tracked daily</div>
+          </div>
+          <div class="kpi-card rose">
+            <div class="kpi-label">Rebooking — Beauty</div>
+            <div class="kpi-value">30%</div>
+            <div class="kpi-sub">Tracked daily</div>
+          </div>
+        </div>
+
+        <span class="strat-section-label">Monthly Revenue Target Mix — 2.0M</span>
+        <div class="mix-grid">
+          <div class="mix-card">
+            <div class="mix-pct">76%</div>
+            <div class="mix-label">Hair + Treatments</div>
+            <div class="mix-aed">AED 1,520,000</div>
+          </div>
+          <div class="mix-card">
+            <div class="mix-pct">12%</div>
+            <div class="mix-label">Beauty Services</div>
+            <div class="mix-aed">AED 240,000</div>
+          </div>
+          <div class="mix-card">
+            <div class="mix-pct">12%</div>
+            <div class="mix-label">Retail Products</div>
+            <div class="mix-aed">AED 240,000</div>
+          </div>
+        </div>
+
+        <span class="strat-section-label">The 6 Levers That Drive Everything</span>
+        <div class="levers-grid">
+          <div class="lever-card">
+            <div class="lever-num">01</div>
+            <div class="lever-title">Retail to 12%</div>
+            <ul class="lever-items">
+              <li>100% recommendation rate — every client gets a solution</li>
+              <li>Protect-first rule: Heat / UV / Water</li>
+              <li>Hero product + weekly logging of refusals</li>
+            </ul>
+          </div>
+          <div class="lever-card">
+            <div class="lever-num">02</div>
+            <div class="lever-title">Treatments to 20%</div>
+            <ul class="lever-items">
+              <li>4 solutions: Detox, Repair, Hydrate, Gloss</li>
+              <li>20-second pitch: Problem → Why → Solution → Result</li>
+              <li>Match home routine: Cleanse → Treat → Protect</li>
+            </ul>
+          </div>
+          <div class="lever-card">
+            <div class="lever-num">03</div>
+            <div class="lever-title">Rebooking System</div>
+            <ul class="lever-items">
+              <li>Hair 45% / Beauty 30% — tracked daily</li>
+              <li>Every client offered rebook before checkout</li>
+              <li>Secures the floor for future months</li>
+            </ul>
+          </div>
+          <div class="lever-card">
+            <div class="lever-num">04</div>
+            <div class="lever-title">Average Bill Growth</div>
+            <ul class="lever-items">
+              <li>Results journeys: Service + Treatment + Retail bundles</li>
+              <li>Smart upgrades: toner, blowdry, treatment add-ons</li>
+              <li>Value focus — grow bill without losing clients</li>
+            </ul>
+          </div>
+          <div class="lever-card">
+            <div class="lever-num">05</div>
+            <div class="lever-title">Referral Campaigns</div>
+            <ul class="lever-items">
+              <li>Scripted ask — every happy client</li>
+              <li>One simple offer + tracking code per stylist</li>
+              <li>Weekly targets per stylist</li>
+            </ul>
+          </div>
+          <div class="lever-card">
+            <div class="lever-num">06</div>
+            <div class="lever-title">New Client Conversion</div>
+            <ul class="lever-items">
+              <li>Pipeline: Lead → Booked → Showed → Rebooked</li>
+              <li>Speed standard + follow-up sequence</li>
+              <li>Incentives tied to Booked + Showed quality</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end sview-targets -->
+
+    <!-- BRANCH BREAKDOWN VIEW -->
+    <div class="strat-view" id="sview-branches">
+      <div class="strat-content">
+
+        <span class="strat-section-label">Branch 2025 Baseline + 2026 Gap Plan</span>
+        <div class="ads-ins" style="border-left-color:var(--lav);margin-bottom:20px;">2025 group avg: <strong>AED 1.69M/mo</strong>. Phase 1 target: <strong>AED 2.0M consistent</strong>. The gap is closed through retail attach, treatment uplift, and — critically for Dubai — new client volume driven by paid acquisition.</div>
+
+        <div class="branch-grid">
+
+          <!-- KCA -->
+          <div class="branch-strat-card kca">
+            <div class="branch-strat-header">
+              <div>
+                <div class="branch-strat-name">KCA — Khalifa City</div>
+                <div class="branch-strat-sub">+21.2% growth vs 2024 · Abu Dhabi</div>
+              </div>
+              <div class="branch-focus-pill">Retail + Treatments</div>
+            </div>
+            <div class="branch-baseline-row">
+              <div class="bbl"><div class="bbl-label">Avg Rev/Mo</div><div class="bbl-val">578k</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Clients</div><div class="bbl-val">913</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Bill</div><div class="bbl-val">632 AED</div></div>
+            </div>
+            <div class="branch-gaps">
+              <div class="gap-row"><span class="gap-label">Target</span><span class="gap-val" style="color:var(--ink);font-weight:400;">AED 660,000 / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Client Gap</span><span class="gap-val">+30 clients needed</span></div>
+              <div class="gap-row"><span class="gap-label">Retail Gap to 12%</span><span class="gap-val">+AED 48k / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Treatment Gap</span><span class="gap-val">12.1% → 20%</span></div>
+            </div>
+            <div class="branch-priorities">
+              <div class="bp-label">Top 3 Priorities</div>
+              <div class="bp-item"><span class="bp-n">1</span>Retail uplift to 12% via protection-first recommendations + logging</div>
+              <div class="bp-item"><span class="bp-n">2</span>Treatments attach (Detox/Repair/Hydrate/Gloss) to protect results and lift avg bill</div>
+              <div class="bp-item"><span class="bp-n">3</span>Rebooking discipline + standards</div>
+            </div>
+          </div>
+
+          <!-- SAA -->
+          <div class="branch-strat-card saa">
+            <div class="branch-strat-header">
+              <div>
+                <div class="branch-strat-name">SAA — Saadiyat</div>
+                <div class="branch-strat-sub">+3.6% growth vs 2024 · Abu Dhabi</div>
+              </div>
+              <div class="branch-focus-pill">Rebooking + Attach</div>
+            </div>
+            <div class="branch-baseline-row">
+              <div class="bbl"><div class="bbl-label">Avg Rev/Mo</div><div class="bbl-val">646k</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Clients</div><div class="bbl-val">1,052</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Bill</div><div class="bbl-val">615 AED</div></div>
+            </div>
+            <div class="branch-gaps">
+              <div class="gap-row"><span class="gap-label">Target</span><span class="gap-val" style="color:var(--ink);font-weight:400;">AED 700,000 / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Client Gap</span><span class="gap-val good">Volume secure (−42 surplus)</span></div>
+              <div class="gap-row"><span class="gap-label">Retail Gap to 12%</span><span class="gap-val">+AED 40k / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Treatment Gap</span><span class="gap-val">9.9% → 20%</span></div>
+            </div>
+            <div class="branch-priorities">
+              <div class="bp-label">Top 3 Priorities</div>
+              <div class="bp-item"><span class="bp-n">1</span>Rebooking improvement (hair + beauty) with checkout discipline and follow-up</div>
+              <div class="bp-item"><span class="bp-n">2</span>Treatments + retail attach to raise value per client without chasing volume</div>
+              <div class="bp-item"><span class="bp-n">3</span>Premium maintenance frequency (gloss/toner + treatment journeys)</div>
+            </div>
+          </div>
+
+          <!-- MC -->
+          <div class="branch-strat-card mc">
+            <div class="branch-strat-header">
+              <div>
+                <div class="branch-strat-name">Motor City</div>
+                <div class="branch-strat-sub">+26.6% growth vs 2024 · Dubai</div>
+              </div>
+              <div class="branch-focus-pill">Conversion + Tx</div>
+            </div>
+            <div class="branch-baseline-row">
+              <div class="bbl"><div class="bbl-label">Avg Rev/Mo</div><div class="bbl-val">214k</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Clients</div><div class="bbl-val">301</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Bill</div><div class="bbl-val">712 AED</div></div>
+            </div>
+            <div class="branch-gaps">
+              <div class="gap-row"><span class="gap-label">Target</span><span class="gap-val" style="color:var(--ink);font-weight:400;">AED 300,000 / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Client Gap</span><span class="gap-val">+132 clients needed ⚠</span></div>
+              <div class="gap-row"><span class="gap-label">Retail Gap to 12%</span><span class="gap-val">+AED 20k / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Treatment Gap</span><span class="gap-val">7.2% → 20%</span></div>
+            </div>
+            <div class="branch-priorities">
+              <div class="bp-label">Top 3 Priorities</div>
+              <div class="bp-item"><span class="bp-n">1</span>New client growth + conversion (Lead → Booked → Showed) with fast follow-up</div>
+              <div class="bp-item"><span class="bp-n">2</span>Treatments attach to protect blonde results and lift profit per guest</div>
+              <div class="bp-item"><span class="bp-n">3</span>Retail uplift via "problem → solution → protection" prescriptions</div>
+            </div>
+          </div>
+
+          <!-- AQ -->
+          <div class="branch-strat-card aq">
+            <div class="branch-strat-header">
+              <div>
+                <div class="branch-strat-name">AQ Ladies — Al Quoz</div>
+                <div class="branch-strat-sub">+15.9% growth vs 2024 · Dubai</div>
+              </div>
+              <div class="branch-focus-pill">Treatments + Retail</div>
+            </div>
+            <div class="branch-baseline-row">
+              <div class="bbl"><div class="bbl-label">Avg Rev/Mo</div><div class="bbl-val">225k</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Clients</div><div class="bbl-val">323</div></div>
+              <div class="bbl"><div class="bbl-label">Avg Bill</div><div class="bbl-val">696 AED</div></div>
+            </div>
+            <div class="branch-gaps">
+              <div class="gap-row"><span class="gap-label">Target</span><span class="gap-val" style="color:var(--ink);font-weight:400;">AED 300,000 / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Client Gap</span><span class="gap-val">+112 clients needed ⚠</span></div>
+              <div class="gap-row"><span class="gap-label">Retail Gap to 12%</span><span class="gap-val">+AED 19k / mo</span></div>
+              <div class="gap-row"><span class="gap-label">Treatment Gap</span><span class="gap-val">10.5% → 20%</span></div>
+            </div>
+            <div class="branch-priorities">
+              <div class="bp-label">Top 3 Priorities</div>
+              <div class="bp-item"><span class="bp-n">1</span>Maintain strong new client share while improving conversion quality (show + rebook)</div>
+              <div class="bp-item"><span class="bp-n">2</span>Increase treatments attach (colour longevity and hair health)</div>
+              <div class="bp-item"><span class="bp-n">3</span>Retail + rebooking sprints to lock in predictable monthly run-rate</div>
+            </div>
+          </div>
+
+        </div><!-- end branch-grid -->
+
+        <div class="ads-ins" style="border-left-color:var(--coral);margin-top:20px;"><strong>Key signal for Morph:</strong> Dubai branches (MC + AQ) need a combined +244 clients/mo to hit Phase 1 targets. Abu Dhabi is a value story; Dubai is a volume story. Paid acquisition strategy must reflect this split.</div>
+
+      </div>
+    </div><!-- end sview-branches -->
+
+  </div><!-- end strategy-main -->
+</div><!-- end mode-strategy -->
 
 <script>
 // ===== NAV =====
@@ -981,6 +1816,22 @@ function updateMetaPeriodLabel() {
   if (month) params.set('month', month);
   params.set('year', year);
   document.getElementById('metaIframe').src = 'meta_ads_performance.html?' + params.toString();
+}
+
+// ===== MODE SWITCHING =====
+function switchMode(mode) {
+  document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.hnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mode-' + mode).classList.add('active');
+  document.getElementById('hnav-' + mode).classList.add('active');
+}
+
+// ===== STRATEGY VIEW SWITCHING =====
+function switchStratView(view) {
+  document.querySelectorAll('.strat-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.strat-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('sview-' + view).classList.add('active');
+  document.getElementById('snav-' + view).classList.add('active');
 }
 
 applyFilters();
