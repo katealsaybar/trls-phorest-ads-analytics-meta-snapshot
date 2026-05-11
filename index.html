@@ -156,7 +156,7 @@ header {
 
 /* Strategy panel layout */
 #mode-strategy {
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .strategy-sidebar {
@@ -1048,17 +1048,17 @@ tr:hover td { background: var(--cream); }
     <p>Performance Dashboard · Jan – Apr 2026</p>
   </div>
   <div class="header-nav">
-    <button class="hnav-btn active" id="hnav-data" onclick="switchMode('data')">
-      <span class="hnav-dot"></span>Phorest &amp; Ads Data
-    </button>
-    <button class="hnav-btn strategy" id="hnav-strategy" onclick="switchMode('strategy')">
+    <button class="hnav-btn strategy active" id="hnav-strategy" onclick="switchMode('strategy')">
       <span class="hnav-dot"></span>2026 Growth Strategy
+    </button>
+    <button class="hnav-btn" id="hnav-data" onclick="switchMode('data')">
+      <span class="hnav-dot"></span>Phorest &amp; Ads Data
     </button>
   </div>
   <div class="header-meta">Prepared for Morph kickoff<br>May 12, 2026</div>
 </header>
 
-<div class="mode-panel active" id="mode-data">
+<div class="mode-panel" id="mode-data">
 <div class="app-body">
 
   <!-- SIDEBAR -->
@@ -1304,7 +1304,7 @@ tr:hover td { background: var(--cream); }
 </div><!-- end mode-data -->
 
 <!-- ===== STRATEGY MODE ===== -->
-<div class="mode-panel" id="mode-strategy">
+<div class="mode-panel active" id="mode-strategy">
   <nav class="strategy-sidebar">
     <div class="sidebar-section">Growth Plan</div>
     <div class="strat-nav-item active" id="snav-targets" onclick="switchStratView('targets')">
@@ -1834,7 +1834,7 @@ function switchStratView(view) {
   document.getElementById('snav-' + view).classList.add('active');
 }
 
-applyFilters();
+// only load data when switching to data mode
 </script>
 </body>
 </html>
