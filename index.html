@@ -3,434 +3,727 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Top Services – Tara Rose Ladies Salon</title>
+<title>Tara Rose Ladies Salon — Performance Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap');
 
-  :root {
-    --cream: #FAF7F2;
-    --blush: #C9A99A;
-    --rose: #8B4A4A;
-    --dark: #2C1F1F;
-    --mid: #6B5050;
-    --light: #E8DDD5;
-    --border: #D9CEC8;
-    --white: #FFFFFF;
-    --chart1: #8B4A4A;
-    --chart2: #C9A99A;
-    --chart3: #B07070;
-    --chart4: #D4B8B0;
-    --chart5: #6B5050;
-  }
+:root {
+  --ink: #2D2E37;
+  --ink-s: #363842;
+  --cream: #FAF8F3;
+  --mineral: #E8E5DD;
+  --border: #D9D5CC;
+  --white: #FFFFFF;
+  --blush: #C9A99A;
+  --rose-dark: #8B4A4A;
+  --mid: #6B5050;
+  --teal: #99F6E4;
+  --teal-t: #0F6E56;
+  --lav: #C4B5FD;
+  --lav-t: #3C3489;
+  --coral: #FF9B9B;
+  --lime: #EEF3C7;
+  --palette1: #8B4A4A;
+  --palette2: #C9A99A;
+  --palette3: #B07070;
+  --palette4: #D4B8B0;
+  --palette5: #6B5050;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--dark);
-    min-height: 100vh;
-  }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  /* HEADER */
-  header {
-  background: var(--dark);
-  padding: 28px 48px;
+/* TOP HEADER */
+header {
+  background: var(--ink);
+  padding: 22px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
   position: sticky;
   top: 0;
-  z-index: 101;
+  z-index: 200;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-  .header-left h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.9rem;
-    font-weight: 300;
-    color: var(--cream);
-    letter-spacing: 0.06em;
-  }
+.header-brand h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+}
 
-  .header-left p {
-    font-size: 0.75rem;
-    color: var(--blush);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
+.header-brand p {
+  font-size: 0.68rem;
+  color: var(--blush);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
 
-  /* FILTERS */
-  .filters {
+.header-meta {
+  font-size: 0.7rem;
+  color: rgba(250,248,243,0.4);
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+/* LAYOUT */
+.app-body {
+  display: flex;
+  flex: 1;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+  position: sticky;
+  top: 69px;
+  height: calc(100vh - 69px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.sidebar-section {
+  padding: 0 20px 8px;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blush);
+  margin-bottom: 4px;
+  margin-top: 20px;
+}
+
+.sidebar-section:first-child { margin-top: 0; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  font-size: 0.82rem;
+  color: var(--mid);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.nav-item:hover { background: var(--cream); color: var(--ink); }
+
+.nav-item.active {
+  background: var(--cream);
+  color: var(--rose-dark);
+  border-left-color: var(--rose-dark);
+  font-weight: 500;
+}
+
+.nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.nav-item.active .nav-dot { background: var(--rose-dark); }
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  overflow-x: hidden;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+/* ===================== TOP SERVICES VIEW ===================== */
+.filters-bar {
   background: var(--white);
   border-bottom: 1px solid var(--border);
-  padding: 20px 48px;
+  padding: 16px 40px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 16px;
   align-items: flex-end;
   position: sticky;
-  top: 93px;
+  top: 69px;
   z-index: 100;
 }
 
-  .filter-group { display: flex; flex-direction: column; gap: 6px; }
+.filter-group { display: flex; flex-direction: column; gap: 5px; }
 
-  .filter-group label {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--mid);
-  }
+.filter-group label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
 
-  select, .branch-checks {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    color: var(--dark);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 12px;
-    background: var(--cream);
-    cursor: pointer;
-    outline: none;
-  }
+select {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  background: var(--cream);
+  cursor: pointer;
+  outline: none;
+}
 
-  select:focus { border-color: var(--blush); }
+select:focus { border-color: var(--blush); }
 
-  .branch-checks {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 6px 0;
-    border: none;
-    background: none;
-  }
+.branch-checks { display: flex; flex-wrap: wrap; gap: 6px; }
 
-  .branch-check {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    padding: 6px 12px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    transition: all 0.15s;
-    user-select: none;
-    background: var(--cream);
-  }
+.branch-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  user-select: none;
+  background: var(--cream);
+}
 
-  .branch-check input { display: none; }
+.branch-check input { display: none; }
+.branch-check.checked { background: var(--rose-dark); border-color: var(--rose-dark); color: var(--white); }
 
-  .branch-check.checked {
-    background: var(--rose);
-    border-color: var(--rose);
-    color: var(--white);
-  }
+.btn-apply {
+  padding: 7px 18px;
+  background: var(--rose-dark);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-end;
+}
 
-  .btn-apply {
-    padding: 8px 20px;
-    background: var(--rose);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-    align-self: flex-end;
-  }
+.btn-apply:hover { background: var(--ink); }
 
-  .btn-apply:hover { background: var(--dark); }
+.services-content { padding: 36px 40px; max-width: 1200px; }
 
-  /* MAIN */
-  main {
-    padding: 40px 48px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
 
-  /* STAT BLOCKS */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin-bottom: 40px;
-  }
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
 
-  .stat-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px 20px;
-  }
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 6px;
+}
 
-  .stat-card .stat-label {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 8px;
-  }
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--rose-dark);
+  line-height: 1;
+}
 
-  .stat-card .stat-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 400;
-    color: var(--rose);
-    line-height: 1;
-  }
+.stat-sub {
+  font-size: 0.7rem;
+  color: var(--blush);
+  margin-top: 4px;
+}
 
-  .stat-card .stat-sub {
-    font-size: 0.75rem;
-    color: var(--blush);
-    margin-top: 4px;
-  }
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
 
-  /* CHARTS GRID */
-  .charts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
-  }
+.chart-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+}
 
-  @media (max-width: 900px) {
-    .charts-grid { grid-template-columns: 1fr; }
-    main { padding: 24px 20px; }
-    header { padding: 20px; }
-    .filters { padding: 16px 20px; }
-  }
+.chart-card.full { grid-column: 1 / -1; }
 
-  .chart-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 28px;
-  }
+.chart-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--rose-dark);
+  margin-bottom: 3px;
+}
 
-  .chart-card.full { grid-column: 1 / -1; }
+.chart-desc {
+  font-size: 0.73rem;
+  color: var(--mid);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
 
-  .chart-card h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--rose);
-    margin-bottom: 4px;
-  }
+.chart-wrapper { position: relative; height: 280px; }
+.chart-wrapper.tall { height: 350px; }
 
-  .chart-card .chart-desc {
-    font-size: 0.78rem;
-    color: var(--mid);
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
+.table-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
 
-  .chart-wrapper {
-    position: relative;
-    height: 300px;
-  }
+.table-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--rose-dark);
+  margin-bottom: 3px;
+}
 
-  .chart-wrapper.tall { height: 380px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 
-  /* TABLE */
-  .table-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 28px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-  }
+th {
+  text-align: left;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mid);
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
 
-  .table-card h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--rose);
-    margin-bottom: 4px;
-  }
+td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--cream);
+  color: var(--ink);
+}
 
-  .table-card .chart-desc {
-    font-size: 0.78rem;
-    color: var(--mid);
-    margin-bottom: 20px;
-  }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--cream); }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.82rem;
-  }
+.rank-badge {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--rose-dark);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 20px;
+}
 
-  th {
-    text-align: left;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--mid);
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
+.rank-badge.gold { background: #C9A849; }
+.rank-badge.silver { background: #9E9E9E; }
+.rank-badge.bronze { background: #A0674A; }
 
-  td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--cream);
-    color: var(--dark);
-  }
+.cat-pill {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 20px;
+  background: var(--mineral);
+  color: var(--mid);
+  font-weight: 500;
+}
 
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--cream); }
+.insight-box {
+  background: #FDF5F0;
+  border: 1px solid var(--blush);
+  border-left: 4px solid var(--rose-dark);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
 
-  .rank-badge {
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--rose);
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-align: center;
-    line-height: 22px;
-  }
+.insight-box strong { color: var(--rose-dark); font-weight: 500; }
 
-  .rank-badge.gold { background: #C9A849; }
-  .rank-badge.silver { background: #9E9E9E; }
-  .rank-badge.bronze { background: #A0674A; }
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: var(--blush);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
 
-  .cat-pill {
-    display: inline-block;
-    font-size: 0.68rem;
-    padding: 2px 8px;
-    border-radius: 20px;
-    background: var(--light);
-    color: var(--mid);
-    font-weight: 500;
-    letter-spacing: 0.04em;
-  }
+.empty-state {
+  text-align: center;
+  padding: 60px;
+  color: var(--blush);
+  font-style: italic;
+  font-size: 0.85rem;
+}
 
-  .branch-pill {
-    display: inline-block;
-    font-size: 0.68rem;
-    padding: 2px 8px;
-    border-radius: 20px;
-    background: var(--rose);
-    color: #fff;
-    font-weight: 500;
-  }
+/* ===================== ADS & ANALYTICS VIEW ===================== */
+.ads-content {
+  padding: 36px 40px;
+  max-width: 1200px;
+}
 
-  .empty-state {
-    text-align: center;
-    padding: 60px;
-    color: var(--blush);
-    font-style: italic;
-    font-size: 0.9rem;
-  }
+.ads-section-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.45;
+  margin: 1.75rem 0 0.65rem;
+  display: block;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 3px;
+  width: fit-content;
+}
 
-  .loading {
-    text-align: center;
-    padding: 60px;
-    color: var(--blush);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.05em;
-  }
+.ads-section-label:first-child { margin-top: 0; }
 
-  .insight-box {
-    background: linear-gradient(135deg, #FDF5F0, #FAF7F2);
-    border: 1px solid var(--blush);
-    border-left: 4px solid var(--rose);
-    border-radius: 10px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: var(--dark);
-  }
+.ads-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 8px;
+}
 
-  .insight-box strong {
-    color: var(--rose);
-    font-weight: 500;
-  }
+.ads-mc {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.ads-ml { font-size: 11px; opacity: 0.5; margin: 0 0 3px; }
+
+.ads-mv {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.ads-ms { font-size: 11px; opacity: 0.4; margin: 2px 0 0; }
+
+.ads-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 10px;
+}
+
+.ads-tbl { width: 100%; border-collapse: collapse; }
+.ads-tbl thead td { font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; opacity: .4; padding: 0 0 8px; }
+.ads-tbl tbody tr { border-top: 1px solid var(--mineral); }
+.ads-tbl tbody td { padding: 8px 0; font-size: 13px; vertical-align: middle; color: var(--ink); }
+
+.ads-bdg { font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+.ads-bpa { background: var(--mineral); opacity: .8; }
+.ads-bac { background: var(--teal); color: var(--teal-t); }
+.ads-cg { color: var(--teal-t); font-weight: 500; }
+.ads-cb { color: #993C1D; font-weight: 500; }
+
+.ads-leg { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; opacity: .65; margin-bottom: 10px; }
+.ads-leg span { display: flex; align-items: center; gap: 5px; opacity: 1; }
+.ads-ld { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+.ads-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.ads-ins { border-left: 2.5px solid var(--teal); padding: .65rem 1rem; margin: 5px 0; font-size: 13px; line-height: 1.65; background: var(--white); border-radius: 0 8px 8px 0; color: var(--ink); }
+.ads-ins-w { border-left-color: var(--coral); }
+.ads-ins-d { border-left-color: #e05050; background: #fff9f9; }
+.ads-ins-g { border-left-color: var(--lav); }
+.ads-ins-l { border-left-color: var(--lime); }
+
+.ads-kwr { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--mineral); }
+.ads-kwr:last-child { border-bottom: none; }
+.ads-kwn { flex: 1; font-size: 12px; opacity: .8; color: var(--ink); }
+.ads-kwbg { width: 90px; height: 5px; background: var(--mineral); border-radius: 3px; overflow: hidden; }
+.ads-kwbf { height: 100%; border-radius: 3px; background: var(--ink-s); }
+.ads-kws { min-width: 65px; text-align: right; font-size: 12px; opacity: .55; color: var(--ink); }
+.ads-kwc { min-width: 50px; text-align: right; font-size: 12px; font-weight: 500; color: var(--ink); }
+
+.ads-chr { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--mineral); font-size: 13px; }
+.ads-chr:last-child { border-bottom: none; }
+.ads-chn { flex: 1; opacity: .85; color: var(--ink); }
+.ads-chb { height: 6px; background: var(--mineral); border-radius: 3px; overflow: hidden; width: 80px; }
+.ads-chbf { height: 100%; border-radius: 3px; }
+.ads-chv { min-width: 55px; text-align: right; opacity: .6; font-size: 12px; color: var(--ink); }
+.ads-chk { min-width: 45px; text-align: right; font-size: 12px; font-weight: 500; color: var(--ink); }
+
+.ev-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--mineral); font-size: 13px; }
+.ev-row:last-child { border-bottom: none; }
+.ev-name { flex: 1; font-family: monospace; font-size: 12px; opacity: .8; color: var(--ink); }
+.ev-bar { height: 5px; background: var(--mineral); border-radius: 3px; overflow: hidden; width: 80px; }
+.ev-barf { height: 100%; border-radius: 3px; background: var(--ink-s); }
+.ev-val { min-width: 55px; text-align: right; font-size: 12px; opacity: .6; color: var(--ink); }
+
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .ads-two { grid-template-columns: 1fr; }
+  .charts-grid { grid-template-columns: 1fr; }
+  .filters-bar { padding: 16px 20px; }
+  .services-content, .ads-content { padding: 24px 20px; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-left">
+  <div class="header-brand">
     <h1>Tara Rose Ladies Salon</h1>
-    <p>Top Services Performance Report</p>
+    <p>Performance Dashboard · Jan – Apr 2026</p>
   </div>
+  <div class="header-meta">Prepared for Morph kickoff<br>May 12, 2026</div>
 </header>
 
-<div class="filters">
-  <div class="filter-group">
-    <label>Branch</label>
-    <div class="branch-checks" id="branchChecks">
-      <label class="branch-check checked"><input type="checkbox" value="KCA" checked> KCA</label>
-      <label class="branch-check checked"><input type="checkbox" value="SAA" checked> SAA</label>
-      <label class="branch-check checked"><input type="checkbox" value="MC" checked> MC</label>
-      <label class="branch-check checked"><input type="checkbox" value="AQ" checked> AQ</label>
+<div class="app-body">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-section">Salon Data</div>
+    <div class="nav-item active" onclick="switchView('services')" id="nav-services">
+      <span class="nav-dot"></span> Top Services Snapshot
     </div>
-  </div>
 
-  <div class="filter-group">
-    <label>Report Type</label>
-    <select id="reportType">
-      <option value="revenue">Revenue</option>
-      <option value="profit">Profit</option>
-    </select>
-  </div>
+    <div class="sidebar-section">Paid Media</div>
+    <div class="nav-item" onclick="switchView('ads')" id="nav-ads">
+      <span class="nav-dot"></span> Google Ads & Analytics
+    </div>
+  </nav>
 
-  <div class="filter-group">
-    <label>Month</label>
-    <select id="filterMonth">
-      <option value="">All Months</option>
-      <option value="1">January</option>
-      <option value="2">February</option>
-      <option value="3">March</option>
-      <option value="4">April</option>
-      <option value="5">May</option>
-      <option value="6">June</option>
-      <option value="7">July</option>
-      <option value="8">August</option>
-      <option value="9">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
-    </select>
-  </div>
+  <!-- MAIN -->
+  <div class="main-content">
 
-  <div class="filter-group">
-    <label>Year</label>
-    <select id="filterYear">
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-    </select>
-  </div>
+    <!-- ===== VIEW: TOP SERVICES ===== -->
+    <div class="view active" id="view-services">
+      <div class="filters-bar">
+        <div class="filter-group">
+          <label>Branch</label>
+          <div class="branch-checks" id="branchChecks">
+            <label class="branch-check checked"><input type="checkbox" value="KCA" checked> KCA</label>
+            <label class="branch-check checked"><input type="checkbox" value="SAA" checked> SAA</label>
+            <label class="branch-check checked"><input type="checkbox" value="MC" checked> MC</label>
+            <label class="branch-check checked"><input type="checkbox" value="AQ" checked> AQ</label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Report Type</label>
+          <select id="reportType">
+            <option value="revenue">Revenue</option>
+            <option value="profit">Profit</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Month</label>
+          <select id="filterMonth">
+            <option value="">All Months</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Year</label>
+          <select id="filterYear">
+            <option value="2026" selected>2026</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+        <button class="btn-apply" onclick="applyFilters()">Apply</button>
+      </div>
+      <div class="services-content">
+        <div id="dashboard"><div class="loading">Loading data...</div></div>
+      </div>
+    </div>
 
-  <button class="btn-apply" onclick="applyFilters()">Apply</button>
-</div>
+    <!-- ===== VIEW: ADS & ANALYTICS ===== -->
+    <div class="view" id="view-ads">
+      <div class="ads-content">
 
-<main>
-  <div id="dashboard">
-    <div class="loading">Loading data...</div>
-  </div>
-</main>
+        <span class="ads-section-label">Google Ads — account overview</span>
+        <div class="ads-metric-grid">
+          <div class="ads-mc"><p class="ads-ml">Total spend</p><p class="ads-mv">AED 11,162</p><p class="ads-ms">Jan–Apr 2026</p></div>
+          <div class="ads-mc"><p class="ads-ml">Conversions</p><p class="ads-mv">1,279</p><p class="ads-ms">all campaigns</p></div>
+          <div class="ads-mc"><p class="ads-ml">Avg. CPA</p><p class="ads-mv">AED 8.73</p><p class="ads-ms">blended</p></div>
+          <div class="ads-mc"><p class="ads-ml">Active campaigns</p><p class="ads-mv">4 / 8</p><p class="ads-ms">4 paused</p></div>
+          <div class="ads-mc"><p class="ads-ml">Mobile share</p><p class="ads-mv">91%</p><p class="ads-ms">of spend</p></div>
+          <div class="ads-mc"><p class="ads-ml">Female audience</p><p class="ads-mv">96%</p><p class="ads-ms">of impressions</p></div>
+        </div>
+
+        <span class="ads-section-label">Weekly performance — clicks vs. CPA</span>
+        <div class="ads-card">
+          <div class="ads-leg">
+            <span><span class="ads-ld" style="background:#2D2E37;"></span>Clicks</span>
+            <span><span class="ads-ld" style="background:#FF9B9B;border-radius:50%;"></span>CPA (AED)</span>
+          </div>
+          <div style="position:relative;width:100%;height:210px;">
+            <canvas id="adsTime" role="img" aria-label="Weekly clicks and CPA Jan to Apr 2026. Clicks peaked Feb, CPA rose to AED 34 in March.">Clicks declined and CPA rose sharply from March 2026.</canvas>
+          </div>
+        </div>
+
+        <span class="ads-section-label">Campaign breakdown</span>
+        <div class="ads-card">
+          <table class="ads-tbl">
+            <thead><tr><td>Campaign</td><td style="text-align:right;">Spend</td><td style="text-align:right;">Conv.</td><td style="text-align:right;">CPA</td></tr></thead>
+            <tbody>
+              <tr><td>Performance Max — Dubai <span class="ads-bdg ads-bpa">Paused</span></td><td style="text-align:right;">AED 4,549</td><td style="text-align:right;opacity:.6;">799</td><td style="text-align:right;" class="ads-cg">AED 5.70</td></tr>
+              <tr><td>Brand — Abu Dhabi <span class="ads-bdg ads-bpa">Paused</span></td><td style="text-align:right;">AED 2,524</td><td style="text-align:right;opacity:.6;">300</td><td style="text-align:right;" class="ads-cg">AED 8.40</td></tr>
+              <tr><td>Hair Services — Abu Dhabi <span class="ads-bdg ads-bac">Active</span></td><td style="text-align:right;">AED 1,570</td><td style="text-align:right;opacity:.6;">120</td><td style="text-align:right;" class="ads-cg">AED 13.14</td></tr>
+              <tr><td>Hair Services — Dubai <span class="ads-bdg ads-bac">Active</span></td><td style="text-align:right;">AED 1,413</td><td style="text-align:right;opacity:.6;">35</td><td style="text-align:right;" class="ads-cb">AED 40.42</td></tr>
+              <tr><td>Brand Campaign — Abu Dhabi <span class="ads-bdg ads-bac">Active</span></td><td style="text-align:right;">AED 535</td><td style="text-align:right;opacity:.6;">9</td><td style="text-align:right;" class="ads-cb">AED 62.93</td></tr>
+              <tr><td>Brand Campaign — Dubai <span class="ads-bdg ads-bac">Active</span></td><td style="text-align:right;">AED 510</td><td style="text-align:right;opacity:.6;">14</td><td style="text-align:right;" class="ads-cb">AED 37.73</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ads-two">
+          <div>
+            <span class="ads-section-label">Device split</span>
+            <div class="ads-card">
+              <div style="position:relative;width:100%;height:155px;"><canvas id="adsDevice" role="img" aria-label="Mobile 91%, desktop 8%, tablet 1%">Mobile dominates at 91%.</canvas></div>
+              <div class="ads-leg" style="margin-top:8px;font-size:11px;">
+                <span><span class="ads-ld" style="background:#2D2E37;"></span>Mobile 91%</span>
+                <span><span class="ads-ld" style="background:#888780;"></span>Desktop 8%</span>
+                <span><span class="ads-ld" style="background:#C4B5FD;"></span>Tablet 1%</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span class="ads-section-label">Age distribution</span>
+            <div class="ads-card">
+              <div style="position:relative;width:100%;height:155px;"><canvas id="adsAge" role="img" aria-label="25-34 and 35-44 each at 33%">Core demo 25–44 = 66%.</canvas></div>
+              <div class="ads-leg" style="margin-top:8px;font-size:11px;">
+                <span><span class="ads-ld" style="background:#2D2E37;"></span>25–34: 33%</span>
+                <span><span class="ads-ld" style="background:#363842;"></span>35–44: 33%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span class="ads-section-label">Top keywords by spend</span>
+        <div class="ads-card">
+          <div class="ads-kwr"><span class="ads-kwn">hair salon</span><div class="ads-kwbg"><div class="ads-kwbf" style="width:100%;"></div></div><span class="ads-kws">AED 1,323</span><span class="ads-kwc">4.1%</span></div>
+          <div class="ads-kwr"><span class="ads-kwn">root touch up</span><div class="ads-kwbg"><div class="ads-kwbf" style="width:84%;background:#99F6E4;"></div></div><span class="ads-kws">AED 1,111</span><span class="ads-kwc" style="color:#0F6E56;">10.8%</span></div>
+          <div class="ads-kwr"><span class="ads-kwn">tara rose salon [exact]</span><div class="ads-kwbg"><div class="ads-kwbf" style="width:80%;"></div></div><span class="ads-kws">AED 1,058</span><span class="ads-kwc" style="color:#0F6E56;">25.8%</span></div>
+          <div class="ads-kwr"><span class="ads-kwn">tara rose salon [phrase]</span><div class="ads-kwbg"><div class="ads-kwbf" style="width:48%;"></div></div><span class="ads-kws">AED 641</span><span class="ads-kwc" style="color:#0F6E56;">27.0%</span></div>
+          <div class="ads-kwr"><span class="ads-kwn">tara rose beauty salon [exact]</span><div class="ads-kwbg"><div class="ads-kwbf" style="width:35%;"></div></div><span class="ads-kws">AED 466</span><span class="ads-kwc" style="color:#0F6E56;">19.5%</span></div>
+          <div class="ads-kwr"><span class="ads-kwn">women's hair salons near me</span><div class="ads-kwbg"><div class="ads-kwbf" style="width:17%;"></div></div><span class="ads-kws">AED 220</span><span class="ads-kwc">5.1%</span></div>
+        </div>
+
+        <span class="ads-section-label">Google Analytics — website overview</span>
+        <div class="ads-metric-grid">
+          <div class="ads-mc"><p class="ads-ml">Active users</p><p class="ads-mv">23K</p><p class="ads-ms">Jan–Apr 2026</p></div>
+          <div class="ads-mc"><p class="ads-ml">New users</p><p class="ads-mv">23K</p><p class="ads-ms">97% new</p></div>
+          <div class="ads-mc"><p class="ads-ml">Total sessions</p><p class="ads-mv">27.9K</p><p class="ads-ms">all channels</p></div>
+          <div class="ads-mc"><p class="ads-ml">Avg. engagement</p><p class="ads-mv">24s</p><p class="ads-ms">per active user</p></div>
+          <div class="ads-mc"><p class="ads-ml">Form submits</p><p class="ads-mv">881</p><p class="ads-ms">key conversion</p></div>
+          <div class="ads-mc"><p class="ads-ml">Paid Search sessions</p><p class="ads-mv">10.8K</p><p class="ads-ms">39% of total</p></div>
+        </div>
+
+        <span class="ads-section-label">Traffic by channel — sessions</span>
+        <div class="ads-card">
+          <div class="ads-chr"><span class="ads-chn">Paid Search</span><div class="ads-chb"><div class="ads-chbf" style="width:100%;background:#2D2E37;"></div></div><span class="ads-chv">10,814</span><span class="ads-chk" style="color:#0F6E56;">39%</span></div>
+          <div class="ads-chr"><span class="ads-chn">Direct</span><div class="ads-chb"><div class="ads-chbf" style="width:76%;background:#363842;"></div></div><span class="ads-chv">8,255</span><span class="ads-chk">30%</span></div>
+          <div class="ads-chr"><span class="ads-chn">Organic Search</span><div class="ads-chb"><div class="ads-chbf" style="width:37%;background:#99F6E4;"></div></div><span class="ads-chv">3,956</span><span class="ads-chk" style="color:#0F6E56;">14%</span></div>
+          <div class="ads-chr"><span class="ads-chn">Paid Other</span><div class="ads-chb"><div class="ads-chbf" style="width:16%;background:#888780;"></div></div><span class="ads-chv">1,774</span><span class="ads-chk">6%</span></div>
+          <div class="ads-chr"><span class="ads-chn">Referral</span><div class="ads-chb"><div class="ads-chbf" style="width:9%;background:#C4B5FD;"></div></div><span class="ads-chv">1,018</span><span class="ads-chk">4%</span></div>
+          <div class="ads-chr"><span class="ads-chn">Paid Social</span><div class="ads-chb"><div class="ads-chbf" style="width:8%;background:#FFD4D9;"></div></div><span class="ads-chv">865</span><span class="ads-chk">3%</span></div>
+          <div class="ads-chr"><span class="ads-chn">Organic Social</span><div class="ads-chb"><div class="ads-chbf" style="width:7%;background:#EEF3C7;"></div></div><span class="ads-chv">715</span><span class="ads-chk">3%</span></div>
+        </div>
+
+        <span class="ads-section-label">Channel quality — engagement rate vs. session time</span>
+        <div class="ads-card">
+          <div class="ads-leg">
+            <span><span class="ads-ld" style="background:#2D2E37;"></span>Engagement rate %</span>
+            <span><span class="ads-ld" style="background:#99F6E4;border:1px solid #0F6E56;"></span>Avg. session time (s)</span>
+          </div>
+          <div style="position:relative;width:100%;height:230px;">
+            <canvas id="adsChannel" role="img" aria-label="Channel quality. Organic Search and Paid Social have highest engagement. Paid Search lowest at 48%.">Channel quality comparison.</canvas>
+          </div>
+        </div>
+
+        <span class="ads-section-label">Top events</span>
+        <div class="ads-card">
+          <div class="ev-row"><span class="ev-name">page_view</span><div class="ev-bar"><div class="ev-barf" style="width:100%;"></div></div><span class="ev-val">39,184</span></div>
+          <div class="ev-row"><span class="ev-name">session_start</span><div class="ev-bar"><div class="ev-barf" style="width:71%;"></div></div><span class="ev-val">27,687</span></div>
+          <div class="ev-row"><span class="ev-name">first_visit</span><div class="ev-bar"><div class="ev-barf" style="width:58%;"></div></div><span class="ev-val">22,783</span></div>
+          <div class="ev-row"><span class="ev-name">user_engagement</span><div class="ev-bar"><div class="ev-barf" style="width:51%;"></div></div><span class="ev-val">19,831</span></div>
+          <div class="ev-row"><span class="ev-name">scroll</span><div class="ev-bar"><div class="ev-barf" style="width:23%;"></div></div><span class="ev-val">9,086</span></div>
+          <div class="ev-row"><span class="ev-name">file_download</span><div class="ev-bar"><div class="ev-barf" style="width:13%;background:#C4B5FD;"></div></div><span class="ev-val">5,211</span></div>
+          <div class="ev-row"><span class="ev-name">form_submit ✦</span><div class="ev-bar"><div class="ev-barf" style="width:2%;background:#99F6E4;"></div></div><span class="ev-val" style="color:#0F6E56;font-weight:500;">881</span></div>
+        </div>
+
+        <span class="ads-section-label">Key findings for Morph</span>
+        <div class="ads-ins ads-ins-d">CPA collapsed from ~AED 7 to AED 34 from March — directly tied to pausing Performance Max. Restoring or rebuilding this campaign should be priority #1.</div>
+        <div class="ads-ins ads-ins-w">Dubai campaigns are 3× more expensive than Abu Dhabi. Hair Services Dubai CPA = AED 40 vs Abu Dhabi's AED 13. Needs a dedicated Dubai strategy.</div>
+        <div class="ads-ins ads-ins-w">Paid Search drives 39% of sessions but has the lowest engagement rate (48%) and only 24s avg. session time — landing page is the likely conversion leak.</div>
+        <div class="ads-ins ads-ins-d">91% of spend hits mobile users. With only 24s avg. engagement, the mobile landing experience needs urgent review before scaling budget.</div>
+        <div class="ads-ins ads-ins-g">Organic Search is highest quality traffic: 71% engagement rate, 38s avg. session. SEO is quietly working — worth protecting.</div>
+        <div class="ads-ins ads-ins-g">Paid Social has the longest avg. session time (40s) despite low volume. High-intent audience — underinvested channel for Dubai acquisition.</div>
+        <div class="ads-ins ads-ins-l">881 form submits recorded — this is the conversion anchor. Morph needs to map this to actual bookings to validate CPA quality.</div>
+        <div class="ads-ins" style="border-left-color:var(--teal);">Audience targeting is solid: 96% female, 25–44 core demo = 66%. Focus budget and creative, not targeting.</div>
+
+      </div>
+    </div><!-- end view-ads -->
+
+  </div><!-- end main-content -->
+</div><!-- end app-body -->
 
 <script>
+// ===== NAV =====
+function switchView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.getElementById('nav-' + view).classList.add('active');
+  if (view === 'ads' && !adsChartsBuilt) buildAdsCharts();
+}
+
+// ===== TOP SERVICES (Supabase) =====
 const SUPABASE_URL = 'https://syzxjlmhnssddeymzvwc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_36v7iJofatGlPFDj04R65Q_953Wvuqw';
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -439,7 +732,6 @@ const PALETTE = ['#8B4A4A','#C9A99A','#B07070','#D4B8B0','#6B5050','#E8DDD5','#2
 
 let chartInstances = {};
 
-// Branch checkbox toggle
 document.getElementById('branchChecks').addEventListener('click', e => {
   const label = e.target.closest('.branch-check');
   if (!label) return;
@@ -466,7 +758,6 @@ async function fetchData(branches, reportType, month, year) {
   let url = `${SUPABASE_URL}/rest/v1/top_services?report_type=eq.${reportType}&year=eq.${year}&order=revenue.desc`;
   if (branches.length > 0) url += `&branch=in.(${branches.join(',')})`;
   if (month) url += `&month=eq.${month}`;
-
   const res = await fetch(url, {
     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
   });
@@ -479,8 +770,9 @@ function destroyChart(id) {
 
 function renderChart(id, config) {
   destroyChart(id);
-  const ctx = document.getElementById(id).getContext('2d');
-  chartInstances[id] = new Chart(ctx, config);
+  const el = document.getElementById(id);
+  if (!el) return;
+  chartInstances[id] = new Chart(el.getContext('2d'), config);
 }
 
 function buildInsight(data, reportType, branches, month, year) {
@@ -493,16 +785,7 @@ function buildInsight(data, reportType, branches, month, year) {
   const bestCat = Object.entries(topCat).sort((a, b) => b[1] - a[1])[0];
   const period = month ? `${MONTHS[month - 1]} ${year}` : `${year}`;
   const branchText = branches.length === 4 ? 'all branches' : branches.map(b => BRANCH_FULL[b] || b).join(', ');
-
-  return `
-    <div class="insight-box">
-      For <strong>${period}</strong> across <strong>${branchText}</strong>: 
-      Total ${reportType} stands at <strong>${aed(total)}</strong>. 
-      The top-performing service is <strong>${topService.description}</strong> (${topService.category}), 
-      generating <strong>${aed(topService[field])}</strong>. 
-      The strongest service category overall is <strong>${bestCat[0]}</strong> with <strong>${aed(bestCat[1])}</strong> in ${reportType}.
-    </div>
-  `;
+  return `<div class="insight-box">For <strong>${period}</strong> across <strong>${branchText}</strong>: Total ${reportType} stands at <strong>${aed(total)}</strong>. The top service is <strong>${topService.description}</strong> (${topService.category}), generating <strong>${aed(topService[field])}</strong>. Strongest category: <strong>${bestCat[0]}</strong> with <strong>${aed(bestCat[1])}</strong>.</div>`;
 }
 
 async function applyFilters() {
@@ -518,198 +801,68 @@ async function applyFilters() {
   }
 
   dashboard.innerHTML = '<div class="loading">Fetching data...</div>';
-  Object.keys(chartInstances).forEach(id => destroyChart(id));
+  Object.keys(chartInstances).forEach(id => { if (!['adsTime','adsDevice','adsAge','adsChannel'].includes(id)) destroyChart(id); });
 
   try {
     const data = await fetchData(branches, reportType, month, year);
-
     if (!data.length) {
-      dashboard.innerHTML = '<div class="empty-state">No data found for the selected filters. Try uploading data first via upload.html.</div>';
+      dashboard.innerHTML = '<div class="empty-state">No data found for the selected filters.</div>';
       return;
     }
 
     const field = reportType === 'revenue' ? 'revenue' : 'profit';
-
-    // Aggregate by description across branches
     const byService = {};
     data.forEach(r => {
-      const key = r.description;
-      if (!byService[key]) byService[key] = { description: r.description, category: r.category, revenue: 0, profit: 0, qty: 0, time_hrs: 0 };
-      byService[key].revenue += r.revenue || 0;
-      byService[key].profit += r.profit || 0;
-      byService[key].qty += r.qty || 0;
-      byService[key].time_hrs += r.time_hrs || 0;
+      if (!byService[r.description]) byService[r.description] = { description: r.description, category: r.category, revenue: 0, profit: 0, qty: 0, time_hrs: 0 };
+      byService[r.description].revenue += r.revenue || 0;
+      byService[r.description].profit += r.profit || 0;
+      byService[r.description].qty += r.qty || 0;
+      byService[r.description].time_hrs += r.time_hrs || 0;
     });
 
     const services = Object.values(byService).sort((a, b) => b[field] - a[field]).slice(0, 10);
 
-    // By category
     const byCat = {};
-    data.forEach(r => {
-      if (!byCat[r.category]) byCat[r.category] = 0;
-      byCat[r.category] += r[field] || 0;
-    });
+    data.forEach(r => { byCat[r.category] = (byCat[r.category] || 0) + (r[field] || 0); });
     const catEntries = Object.entries(byCat).sort((a, b) => b[1] - a[1]);
 
-    // By branch
     const byBranch = {};
-    data.forEach(r => {
-      if (!byBranch[r.branch]) byBranch[r.branch] = 0;
-      byBranch[r.branch] += r[field] || 0;
-    });
+    data.forEach(r => { byBranch[r.branch] = (byBranch[r.branch] || 0) + (r[field] || 0); });
 
-    // Stats
-    const totalVal = services.reduce((s, r) => s + (r[field] || 0), 0);
+    const totalVal = data.reduce((s, r) => s + (r[field] || 0), 0);
     const totalQty = services.reduce((s, r) => s + (r.qty || 0), 0);
     const totalHrs = services.reduce((s, r) => s + (r.time_hrs || 0), 0);
     const avgPerService = services.length ? totalVal / services.length : 0;
 
     dashboard.innerHTML = `
       ${buildInsight(data, reportType, branches, month, year)}
-
       <div class="stats">
-        <div class="stat-card">
-          <div class="stat-label">Total ${reportType}</div>
-          <div class="stat-value">${aed(totalVal)}</div>
-          <div class="stat-sub">Across selected filters</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Total Bookings</div>
-          <div class="stat-value">${num(totalQty)}</div>
-          <div class="stat-sub">Services rendered</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Total Hours</div>
-          <div class="stat-value">${Number(totalHrs).toFixed(0)}</div>
-          <div class="stat-sub">Time rendered</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Avg per Service</div>
-          <div class="stat-value">${aed(avgPerService)}</div>
-          <div class="stat-sub">Average ${reportType}</div>
-        </div>
+        <div class="stat-card"><div class="stat-label">Total ${reportType}</div><div class="stat-value">${aed(totalVal)}</div><div class="stat-sub">Selected filters</div></div>
+        <div class="stat-card"><div class="stat-label">Total Bookings</div><div class="stat-value">${num(totalQty)}</div><div class="stat-sub">Services rendered</div></div>
+        <div class="stat-card"><div class="stat-label">Total Hours</div><div class="stat-value">${Number(totalHrs).toFixed(0)}</div><div class="stat-sub">Time rendered</div></div>
+        <div class="stat-card"><div class="stat-label">Avg per Service</div><div class="stat-value">${aed(avgPerService)}</div><div class="stat-sub">Average ${reportType}</div></div>
       </div>
-
       <div class="charts-grid">
-        <div class="chart-card">
-          <h3>Top Services by ${reportType.charAt(0).toUpperCase() + reportType.slice(1)}</h3>
-          <p class="chart-desc">Horizontal bar chart showing the top 10 services ranked by ${reportType}.</p>
-          <div class="chart-wrapper tall">
-            <canvas id="chartBar"></canvas>
-          </div>
-        </div>
-
-        <div class="chart-card">
-          <h3>Revenue by Category</h3>
-          <p class="chart-desc">Share of ${reportType} by service category — shows which category drives the most income.</p>
-          <div class="chart-wrapper">
-            <canvas id="chartDoughnut"></canvas>
-          </div>
-        </div>
-
-        ${branches.length > 1 ? `
-        <div class="chart-card full">
-          <h3>Branch Comparison</h3>
-          <p class="chart-desc">Total ${reportType} per branch for the selected period.</p>
-          <div class="chart-wrapper">
-            <canvas id="chartBranch"></canvas>
-          </div>
-        </div>` : ''}
+        <div class="chart-card"><h3>Top Services by ${reportType.charAt(0).toUpperCase()+reportType.slice(1)}</h3><p class="chart-desc">Top 10 services ranked by ${reportType}.</p><div class="chart-wrapper tall"><canvas id="chartBar"></canvas></div></div>
+        <div class="chart-card"><h3>${reportType.charAt(0).toUpperCase()+reportType.slice(1)} by Category</h3><p class="chart-desc">Share of ${reportType} by service category.</p><div class="chart-wrapper"><canvas id="chartDoughnut"></canvas></div></div>
+        ${branches.length > 1 ? `<div class="chart-card full"><h3>Branch Comparison</h3><p class="chart-desc">Total ${reportType} per branch.</p><div class="chart-wrapper"><canvas id="chartBranch"></canvas></div></div>` : ''}
       </div>
-
       <div class="table-card">
         <h3>Top Services Detail</h3>
-        <p class="chart-desc">Full breakdown of top performing services including bookings, time, and ${reportType}.</p>
+        <p class="chart-desc">Full breakdown including bookings, time, and ${reportType}.</p>
         <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Service</th>
-              <th>Category</th>
-              <th>Qty</th>
-              <th>Time (hrs)</th>
-              <th>${reportType.charAt(0).toUpperCase() + reportType.slice(1)} (AED)</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${services.map((s, i) => `<tr>
-              <td><span class="rank-badge ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}">${i + 1}</span></td>
-              <td>${s.description}</td>
-              <td><span class="cat-pill">${s.category}</span></td>
-              <td>${num(s.qty)}</td>
-              <td>${Number(s.time_hrs).toFixed(1)}</td>
-              <td><strong>${aed(s[field])}</strong></td>
-            </tr>`).join('')}
-          </tbody>
+          <thead><tr><th>#</th><th>Service</th><th>Category</th><th>Qty</th><th>Time (hrs)</th><th>${reportType.charAt(0).toUpperCase()+reportType.slice(1)} (AED)</th></tr></thead>
+          <tbody>${services.map((s,i) => `<tr><td><span class="rank-badge ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i+1}</span></td><td>${s.description}</td><td><span class="cat-pill">${s.category}</span></td><td>${num(s.qty)}</td><td>${Number(s.time_hrs).toFixed(1)}</td><td><strong>${aed(s[field])}</strong></td></tr>`).join('')}</tbody>
         </table>
       </div>
     `;
 
-    // Bar chart
-    renderChart('chartBar', {
-      type: 'bar',
-      data: {
-        labels: services.map(s => s.description.length > 28 ? s.description.slice(0, 28) + '…' : s.description),
-        datasets: [{
-          label: reportType.charAt(0).toUpperCase() + reportType.slice(1) + ' (AED)',
-          data: services.map(s => s[field]),
-          backgroundColor: PALETTE[0],
-          borderRadius: 4,
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { callback: v => 'AED ' + (v >= 1000 ? (v/1000).toFixed(0) + 'k' : v), font: { size: 11 } }, grid: { color: '#E8DDD5' } },
-          y: { ticks: { font: { size: 11 } }, grid: { display: false } }
-        }
-      }
-    });
+    renderChart('chartBar', { type:'bar', data:{ labels:services.map(s=>s.description.length>28?s.description.slice(0,28)+'…':s.description), datasets:[{label:reportType,data:services.map(s=>s[field]),backgroundColor:PALETTE[0],borderRadius:4}]}, options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>'AED '+(v>=1000?(v/1000).toFixed(0)+'k':v),font:{size:11}},grid:{color:'#E8DDD5'}},y:{ticks:{font:{size:11}},grid:{display:false}}}}});
 
-    // Doughnut
-    renderChart('chartDoughnut', {
-      type: 'doughnut',
-      data: {
-        labels: catEntries.map(([k]) => k),
-        datasets: [{ data: catEntries.map(([, v]) => v), backgroundColor: PALETTE, borderWidth: 2, borderColor: '#fff' }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'right', labels: { font: { size: 11 }, padding: 12 } },
-          tooltip: { callbacks: { label: ctx => ` ${ctx.label}: AED ${Number(ctx.raw).toLocaleString('en-AE', {maximumFractionDigits:0})}` } }
-        }
-      }
-    });
+    renderChart('chartDoughnut', { type:'doughnut', data:{ labels:catEntries.map(([k])=>k), datasets:[{data:catEntries.map(([,v])=>v),backgroundColor:PALETTE,borderWidth:2,borderColor:'#fff'}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:11},padding:12}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: AED ${Number(ctx.raw).toLocaleString('en-AE',{maximumFractionDigits:0})}`}}}}});
 
-    // Branch comparison
     if (branches.length > 1 && document.getElementById('chartBranch')) {
-      const branchLabels = Object.keys(byBranch).map(b => BRANCH_FULL[b] || b);
-      renderChart('chartBranch', {
-        type: 'bar',
-        data: {
-          labels: branchLabels,
-          datasets: [{
-            label: reportType.charAt(0).toUpperCase() + reportType.slice(1) + ' (AED)',
-            data: Object.values(byBranch),
-            backgroundColor: PALETTE,
-            borderRadius: 6,
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { ticks: { callback: v => 'AED ' + (v >= 1000 ? (v/1000).toFixed(0) + 'k' : v), font: { size: 11 } }, grid: { color: '#E8DDD5' } },
-            x: { ticks: { font: { size: 11 } }, grid: { display: false } }
-          }
-        }
-      });
+      renderChart('chartBranch', { type:'bar', data:{ labels:Object.keys(byBranch).map(b=>BRANCH_FULL[b]||b), datasets:[{label:reportType,data:Object.values(byBranch),backgroundColor:PALETTE,borderRadius:6}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'AED '+(v>=1000?(v/1000).toFixed(0)+'k':v),font:{size:11}},grid:{color:'#E8DDD5'}},x:{ticks:{font:{size:11}},grid:{display:false}}}}});
     }
 
   } catch(e) {
@@ -717,6 +870,50 @@ async function applyFilters() {
   }
 }
 
+// ===== ADS CHARTS (lazy build) =====
+let adsChartsBuilt = false;
+
+function buildAdsCharts() {
+  adsChartsBuilt = true;
+  const ink='#2D2E37', min='#E8E5DD', coral='#FF9B9B', teal='#99F6E4', lav='#C4B5FD', gray='#888780';
+
+  new Chart(document.getElementById('adsTime'), {
+    data: {
+      labels: ['Dec29','Jan5','Jan12','Jan19','Jan26','Feb2','Feb9','Feb16','Feb23','Mar2','Mar9','Mar16','Mar23','Mar30','Apr6','Apr13','Apr20','Apr27'],
+      datasets: [
+        {type:'bar',label:'Clicks',data:[450,1118,1257,1228,1659,1905,1477,1069,881,1083,854,523,331,254,214,219,131,124],backgroundColor:'rgba(45,46,55,0.15)',borderColor:ink,borderWidth:1,yAxisID:'y'},
+        {type:'line',label:'CPA',data:[8.19,6.73,6.84,6.46,6.74,7.38,7.00,7.92,4.97,5.71,9.70,8.71,12.08,34.21,29.17,30.57,9.86,10.67],borderColor:coral,backgroundColor:'transparent',pointBackgroundColor:coral,pointRadius:3,tension:0.35,yAxisID:'y2',borderDash:[4,3]}
+      ]
+    },
+    options: { responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{ x:{ticks:{font:{size:10},maxRotation:45,maxTicksLimit:9},grid:{display:false},border:{color:min}}, y:{position:'left',ticks:{font:{size:11},color:gray},grid:{color:min},border:{display:false},title:{display:true,text:'Clicks',font:{size:11},color:gray}}, y2:{position:'right',ticks:{font:{size:11},color:gray,callback:v=>'AED '+v},grid:{display:false},border:{display:false},title:{display:true,text:'CPA',font:{size:11},color:gray}} }}
+  });
+
+  new Chart(document.getElementById('adsDevice'), {
+    type:'doughnut',
+    data:{labels:['Mobile','Desktop','Tablet'],datasets:[{data:[10151,873,137],backgroundColor:[ink,gray,lav],borderWidth:3,borderColor:'#FAF8F3'}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'68%'}
+  });
+
+  new Chart(document.getElementById('adsAge'), {
+    type:'bar',
+    data:{labels:['18–24','25–34','35–44','45–54','55–64','65+'],datasets:[{data:[10.12,33.23,33.00,16.98,5.11,1.74],backgroundColor:[min,ink,'#363842',gray,lav,min],borderWidth:0,borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},color:gray},grid:{display:false},border:{color:min}},y:{ticks:{font:{size:11},color:gray,callback:v=>v+'%'},grid:{color:min},border:{display:false}}}}
+  });
+
+  new Chart(document.getElementById('adsChannel'), {
+    type:'bar',
+    data:{
+      labels:['Paid Search','Direct','Organic Search','Paid Other','Paid Social','Organic Social'],
+      datasets:[
+        {label:'Engagement rate %',data:[47.5,40.9,71.5,33.9,48.4,60.1],backgroundColor:'rgba(45,46,55,0.75)',borderRadius:3,yAxisID:'y'},
+        {label:'Avg. session time (s)',data:[19.8,14.8,38.1,8.1,40.4,13.9],backgroundColor:teal,borderRadius:3,yAxisID:'y2'}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},color:gray,maxRotation:20},grid:{display:false},border:{color:min}},y:{position:'left',ticks:{font:{size:11},color:gray,callback:v=>v+'%'},grid:{color:min},border:{display:false},max:100},y2:{position:'right',ticks:{font:{size:11},color:gray,callback:v=>v+'s'},grid:{display:false},border:{display:false}}}}
+  });
+}
+
+// Init
 applyFilters();
 </script>
 </body>
