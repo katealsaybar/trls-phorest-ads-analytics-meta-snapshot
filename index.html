@@ -589,6 +589,25 @@ tr:hover td { background: var(--cream); }
     <!-- ===== VIEW: ADS & ANALYTICS ===== -->
     <div class="view" id="view-ads">
       <div class="ads-content">
+        <div class="filters-bar" style="margin-bottom:0;">
+          <div class="filter-group">
+            <label>Month</label>
+            <select id="adsFilterMonth">
+              <option value="">All Months</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Year</label>
+            <select id="adsFilterYear">
+              <option value="2026" selected>2026</option>
+              <option value="2025">2025</option>
+            </select>
+          </div>
+        </div>
 
         <span class="ads-section-label">Google Ads — account overview</span>
         <div class="ads-metric-grid">
@@ -718,7 +737,26 @@ tr:hover td { background: var(--cream); }
 
 <!-- ===== VIEW: META ADS ===== -->
     <div class="view" id="view-meta">
-      <iframe src="meta_ads_performance.html" style="width:100%;height:calc(100vh - 52px);border:none;display:block;"></iframe>
+      <div class="filters-bar" style="margin-bottom:0;">
+        <div class="filter-group">
+          <label>Month</label>
+          <select id="metaFilterMonth">
+            <option value="">All Months</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Year</label>
+          <select id="metaFilterYear">
+            <option value="2026" selected>2026</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+      </div>
+      <iframe src="meta_ads_performance.html" style="width:100%;height:calc(100vh - 104px);border:none;display:block;"></iframe>
     </div><!-- end view-meta -->
 
   </div><!-- end main-content -->
@@ -884,6 +922,20 @@ async function applyFilters() {
 // ===== ADS CHARTS (lazy build) =====
 let adsChartsBuilt = false;
 
+document.getElementById('adsFilterMonth').addEventListener('change', function() {
+  const month = this.value;
+  const year = document.getElementById('adsFilterYear').value;
+  const label = document.querySelector('#view-ads .ads-mc .ads-ms');
+  const period = month ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month-1]} ${year}` : `Jan–Apr ${year}`;
+  document.querySelectorAll('#view-ads .ads-ms').forEach(el => {
+    if (el.textContent.match(/Jan.*2026|2025|2026/)) el.textContent = period;
+  });
+});
+
+document.getElementById('adsFilterYear').addEventListener('change', function() {
+  document.getElementById('adsFilterMonth').dispatchEvent(new Event('change'));
+});
+
 function buildAdsCharts() {
   adsChartsBuilt = true;
   const ink='#2D2E37', min='#E8E5DD', coral='#FF9B9B', teal='#99F6E4', lav='#C4B5FD', gray='#888780';
@@ -923,6 +975,21 @@ function buildAdsCharts() {
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},color:gray,maxRotation:20},grid:{display:false},border:{color:min}},y:{position:'left',ticks:{font:{size:11},color:gray,callback:v=>v+'%'},grid:{color:min},border:{display:false},max:100},y2:{position:'right',ticks:{font:{size:11},color:gray,callback:v=>v+'s'},grid:{display:false},border:{display:false}}}}
   });
 }
+
+document.getElementById('metaFilterMonth').addEventListener('change', function() {
+  const month = this.value;
+  const year = document.getElementById('metaFilterYear').value;
+  const iframe = document.querySelector('#view-meta iframe');
+  const src = 'meta_ads_performance.html';
+  const params = new URLSearchParams();
+  if (month) params.set('month', month);
+  params.set('year', year);
+  iframe.src = src + '?' + params.toString();
+});
+
+document.getElementById('metaFilterYear').addEventListener('change', function() {
+  document.getElementById('metaFilterMonth').dispatchEvent(new Event('change'));
+});
 
 applyFilters();
 </script>
