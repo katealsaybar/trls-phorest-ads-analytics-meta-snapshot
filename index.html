@@ -732,7 +732,7 @@ function switchView(view) {
   document.getElementById('view-' + view).classList.add('active');
   document.getElementById('nav-' + view).classList.add('active');
   if (view === 'ads' && !adsChartsBuilt) buildAdsCharts();
-  }
+}
 
 // ===== TOP SERVICES (Supabase) =====
 const SUPABASE_URL = 'https://syzxjlmhnssddeymzvwc.supabase.co';
