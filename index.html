@@ -1128,25 +1128,9 @@ tr:hover td { background: var(--cream); }
 
     <!-- ===== VIEW: ADS & ANALYTICS ===== -->
     <div class="view" id="view-ads">
-      <div class="filters-bar">
-          <div class="filter-group">
-            <label>Month</label>
-            <select id="adsFilterMonth" onchange="updateAdsPeriodLabel()">
-              <option value="">All Months</option>
-              <option value="1">January</option>
-              <option value="2">February</option>
-              <option value="3">March</option>
-              <option value="4">April</option>
-            </select>
-          </div>
-          <div class="filter-group">
-            <label>Year</label>
-            <select id="adsFilterYear" onchange="updateAdsPeriodLabel()">
-              <option value="2026" selected>2026</option>
-              <option value="2025">2025</option>
-            </select>
-          </div>
-        </div>
+      <div class="filters-bar" style="padding: 12px 24px; font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; font-style: italic;">
+        📌 Aggregated data: Jan–Apr 2026. Month-level filtering coming once data source is connected.
+      </div>
       <div class="ads-content">
 
         <span class="ads-section-label">Google Ads — account overview</span>
@@ -1277,24 +1261,8 @@ tr:hover td { background: var(--cream); }
 
 <!-- ===== VIEW: META ADS ===== -->
     <div class="view" id="view-meta">
-      <div class="filters-bar">
-        <div class="filter-group">
-          <label>Month</label>
-          <select id="metaFilterMonth" onchange="updateMetaPeriodLabel()">
-            <option value="">All Months</option>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>Year</label>
-          <select id="metaFilterYear" onchange="updateMetaPeriodLabel()">
-            <option value="2026" selected>2026</option>
-            <option value="2025">2025</option>
-          </select>
-        </div>
+      <div class="filters-bar" style="padding: 12px 24px; font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; font-style: italic;">
+        📌 Aggregated data: Jan–Apr 2026. Month-level filtering coming once data source is connected.
       </div>
       <iframe id="metaIframe" src="meta_ads_performance.html" style="width:100%;height:calc(100vh - 104px);border:none;display:block;"></iframe>
     </div><!-- end view-meta -->
