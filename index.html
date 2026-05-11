@@ -161,6 +161,9 @@ header {
   flex-wrap: wrap;
   gap: 16px;
   align-items: flex-end;
+  position: sticky;
+  top: 52px;
+  z-index: 100;
 }
 
 .filter-group { display: flex; flex-direction: column; gap: 5px; }
@@ -225,7 +228,7 @@ select:focus { border-color: var(--blush); }
 
 .btn-apply:hover { background: var(--ink); }
 
-.services-content { padding: 36px 40px 36px; max-width: 1200px; margin-top: 0; }
+.services-content { padding: 24px 40px 36px; max-width: 1200px; }
 
 .stats {
   display: grid;
