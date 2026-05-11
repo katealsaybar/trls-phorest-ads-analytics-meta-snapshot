@@ -588,11 +588,10 @@ tr:hover td { background: var(--cream); }
 
     <!-- ===== VIEW: ADS & ANALYTICS ===== -->
     <div class="view" id="view-ads">
-      <div class="ads-content">
-        <div class="filters-bar" style="margin-bottom:0;">
+      <div class="filters-bar">
           <div class="filter-group">
             <label>Month</label>
-            <select id="adsFilterMonth">
+            <select id="adsFilterMonth" onchange="updateAdsPeriodLabel()">
               <option value="">All Months</option>
               <option value="1">January</option>
               <option value="2">February</option>
@@ -602,12 +601,13 @@ tr:hover td { background: var(--cream); }
           </div>
           <div class="filter-group">
             <label>Year</label>
-            <select id="adsFilterYear">
+            <select id="adsFilterYear" onchange="updateAdsPeriodLabel()">
               <option value="2026" selected>2026</option>
               <option value="2025">2025</option>
             </select>
           </div>
         </div>
+      <div class="ads-content">
 
         <span class="ads-section-label">Google Ads — account overview</span>
         <div class="ads-metric-grid">
@@ -732,15 +732,15 @@ tr:hover td { background: var(--cream); }
         <div class="ads-ins ads-ins-l">881 form submits recorded — this is the conversion anchor. Morph needs to map this to actual bookings to validate CPA quality.</div>
         <div class="ads-ins" style="border-left-color:var(--teal);">Audience targeting is solid: 96% female, 25–44 core demo = 66%. Focus budget and creative, not targeting.</div>
 
-      </div>
+      </div><!-- end ads-content -->
     </div><!-- end view-ads -->
 
 <!-- ===== VIEW: META ADS ===== -->
     <div class="view" id="view-meta">
-      <div class="filters-bar" style="margin-bottom:0;">
+      <div class="filters-bar">
         <div class="filter-group">
           <label>Month</label>
-          <select id="metaFilterMonth">
+          <select id="metaFilterMonth" onchange="updateMetaPeriodLabel()">
             <option value="">All Months</option>
             <option value="1">January</option>
             <option value="2">February</option>
@@ -750,13 +750,13 @@ tr:hover td { background: var(--cream); }
         </div>
         <div class="filter-group">
           <label>Year</label>
-          <select id="metaFilterYear">
+          <select id="metaFilterYear" onchange="updateMetaPeriodLabel()">
             <option value="2026" selected>2026</option>
             <option value="2025">2025</option>
           </select>
         </div>
       </div>
-      <iframe src="meta_ads_performance.html" style="width:100%;height:calc(100vh - 104px);border:none;display:block;"></iframe>
+      <iframe id="metaIframe" src="meta_ads_performance.html" style="width:100%;height:calc(100vh - 104px);border:none;display:block;"></iframe>
     </div><!-- end view-meta -->
 
   </div><!-- end main-content -->
@@ -922,19 +922,17 @@ async function applyFilters() {
 // ===== ADS CHARTS (lazy build) =====
 let adsChartsBuilt = false;
 
-document.getElementById('adsFilterMonth').addEventListener('change', function() {
-  const month = this.value;
+function updateAdsPeriodLabel() {
+  const month = document.getElementById('adsFilterMonth').value;
   const year = document.getElementById('adsFilterYear').value;
-  const label = document.querySelector('#view-ads .ads-mc .ads-ms');
-  const period = month ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month-1]} ${year}` : `Jan–Apr ${year}`;
+  const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const period = month ? `${MONTH_NAMES[month - 1]} ${year}` : `Jan–Apr ${year}`;
   document.querySelectorAll('#view-ads .ads-ms').forEach(el => {
-    if (el.textContent.match(/Jan.*2026|2025|2026/)) el.textContent = period;
+    if (/Jan.*Apr|Jan\s+20|Feb\s+20|Mar\s+20|Apr\s+20/.test(el.textContent)) {
+      el.textContent = period;
+    }
   });
-});
-
-document.getElementById('adsFilterYear').addEventListener('change', function() {
-  document.getElementById('adsFilterMonth').dispatchEvent(new Event('change'));
-});
+}
 
 function buildAdsCharts() {
   adsChartsBuilt = true;
@@ -976,20 +974,14 @@ function buildAdsCharts() {
   });
 }
 
-document.getElementById('metaFilterMonth').addEventListener('change', function() {
-  const month = this.value;
+function updateMetaPeriodLabel() {
+  const month = document.getElementById('metaFilterMonth').value;
   const year = document.getElementById('metaFilterYear').value;
-  const iframe = document.querySelector('#view-meta iframe');
-  const src = 'meta_ads_performance.html';
   const params = new URLSearchParams();
   if (month) params.set('month', month);
   params.set('year', year);
-  iframe.src = src + '?' + params.toString();
-});
-
-document.getElementById('metaFilterYear').addEventListener('change', function() {
-  document.getElementById('metaFilterMonth').dispatchEvent(new Event('change'));
-});
+  document.getElementById('metaIframe').src = 'meta_ads_performance.html?' + params.toString();
+}
 
 applyFilters();
 </script>
