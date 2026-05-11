@@ -1,0 +1,245 @@
+
+<h2 class="sr-only">Tara Rose Salon full Google Ads and Analytics performance report January to April 2026, prepared for Morph kickoff presentation</h2>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2D2E37;--inks:#363842;--cream:#FAF8F3;--min:#E8E5DD;--teal:#99F6E4;--lav:#C4B5FD;--coral:#FF9B9B;--rose:#FFD4D9;--lime:#EEF3C7;--tt:#0F6E56;--lt:#3B6D11;--lvt:#3C3489;--ct:#712B13;}
+.w{font-family:'Inter',sans-serif;background:var(--cream);border-radius:16px;padding:2rem;color:var(--ink);}
+.hdr{border-bottom:1px solid var(--min);padding-bottom:1.25rem;margin-bottom:.25rem;}
+.ey{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;opacity:.4;margin:0 0 5px;}
+.ht{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;margin:0 0 3px;line-height:1.2;}
+.hs{font-size:13px;opacity:.5;margin:0;}
+.stab{font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;opacity:.5;margin:1.75rem 0 .65rem;display:block;border-bottom:1.5px solid var(--ink);padding-bottom:3px;width:fit-content;}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px;}
+.mc{background:white;border:1px solid var(--min);border-radius:10px;padding:.8rem 1rem;}
+.ml{font-size:11px;opacity:.5;margin:0 0 3px;}
+.mv{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin:0;line-height:1.15;}
+.ms{font-size:11px;opacity:.4;margin:2px 0 0;}
+.card{background:white;border:1px solid var(--min);border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;}
+.cw{position:relative;width:100%;}
+.leg{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;opacity:.65;margin-bottom:10px;}
+.leg span{display:flex;align-items:center;gap:5px;opacity:1;}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.tbl{width:100%;border-collapse:collapse;}
+.tbl thead td{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.4;padding:0 0 8px;}
+.tbl tbody tr{border-top:1px solid var(--min);}
+.tbl tbody td{padding:8px 0;font-size:13px;vertical-align:middle;}
+.bdg{font-size:11px;padding:2px 8px;border-radius:20px;}
+.bpa{background:var(--min);opacity:.8;}
+.bac{background:var(--teal);color:var(--tt);}
+.cg{color:var(--tt);font-weight:500;}
+.cw2{color:#854F0B;font-weight:500;}
+.cb{color:#993C1D;font-weight:500;}
+.ins{border-left:2.5px solid var(--teal);padding:.65rem 1rem;margin:5px 0;font-size:13px;line-height:1.65;background:white;border-radius:0 8px 8px 0;}
+.ins-w{border-left-color:var(--coral);}
+.ins-d{border-left-color:#e05050;background:#fff9f9;}
+.ins-g{border-left-color:var(--lav);}
+.ins-l{border-left-color:var(--lime);}
+.kwr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--min);}
+.kwr:last-child{border-bottom:none;}
+.kwn{flex:1;font-size:12px;opacity:.8;}
+.kwbg{width:90px;height:5px;background:var(--min);border-radius:3px;overflow:hidden;}
+.kwbf{height:100%;border-radius:3px;background:var(--inks);}
+.kws{min-width:65px;text-align:right;font-size:12px;opacity:.55;}
+.kwc{min-width:50px;text-align:right;font-size:12px;font-weight:500;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.chr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--min);font-size:13px;}
+.chr:last-child{border-bottom:none;}
+.chn{flex:1;opacity:.85;}
+.chb{height:6px;background:var(--min);border-radius:3px;overflow:hidden;width:80px;}
+.chbf{height:100%;border-radius:3px;}
+.chv{min-width:55px;text-align:right;opacity:.6;font-size:12px;}
+.chk{min-width:45px;text-align:right;font-size:12px;font-weight:500;}
+.ev-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--min);font-size:13px;}
+.ev-row:last-child{border-bottom:none;}
+.ev-name{flex:1;font-family:'Inter',monospace;font-size:12px;opacity:.8;}
+.ev-bar{height:5px;background:var(--min);border-radius:3px;overflow:hidden;width:80px;}
+.ev-barf{height:100%;border-radius:3px;background:var(--inks);}
+.ev-val{min-width:55px;text-align:right;font-size:12px;opacity:.6;}
+@media(max-width:480px){.two{grid-template-columns:1fr;}}
+</style>
+
+<div class="w">
+
+<div class="hdr">
+  <p class="ey">Google Ads + Analytics · Jan–Apr 2026 · Morph kickoff</p>
+  <p class="ht">Tara Rose Ladies Salon</p>
+  <p class="hs">Performance audit · Dubai & Abu Dhabi · Jan 1 – Apr 30, 2026</p>
+</div>
+
+<span class="stab">Google Ads — account overview</span>
+<div class="mg">
+  <div class="mc"><p class="ml">Total spend</p><p class="mv">AED 11,162</p><p class="ms">4 months</p></div>
+  <div class="mc"><p class="ml">Conversions</p><p class="mv">1,279</p><p class="ms">all campaigns</p></div>
+  <div class="mc"><p class="ml">Avg. CPA</p><p class="mv">AED 8.73</p><p class="ms">blended</p></div>
+  <div class="mc"><p class="ml">Active campaigns</p><p class="mv">4 / 8</p><p class="ms">4 paused</p></div>
+  <div class="mc"><p class="ml">Mobile share</p><p class="mv">91%</p><p class="ms">of spend</p></div>
+  <div class="mc"><p class="ml">Female audience</p><p class="mv">96%</p><p class="ms">of impressions</p></div>
+</div>
+
+<span class="stab">Weekly performance — clicks vs. CPA</span>
+<div class="card">
+  <div class="leg">
+    <span><span class="ld" style="background:#2D2E37;"></span>Clicks</span>
+    <span><span class="ld" style="background:#FF9B9B;border-radius:50%;"></span>CPA (AED)</span>
+  </div>
+  <div class="cw" style="height:210px;">
+    <canvas id="c1" role="img" aria-label="Weekly clicks peaked in Feb then fell sharply. CPA rose from AED 7 to AED 34 from March.">Clicks declined and CPA rose sharply from March 2026.</canvas>
+  </div>
+</div>
+
+<span class="stab">Campaign breakdown</span>
+<div class="card">
+  <table class="tbl">
+    <thead><tr><td>Campaign</td><td style="text-align:right;">Spend</td><td style="text-align:right;">Conv.</td><td style="text-align:right;">CPA</td></tr></thead>
+    <tbody>
+      <tr><td>Performance Max — Dubai <span class="bdg bpa">Paused</span></td><td style="text-align:right;">AED 4,549</td><td style="text-align:right;opacity:.6;">799</td><td style="text-align:right;" class="cg">AED 5.70</td></tr>
+      <tr><td>Brand — Abu Dhabi <span class="bdg bpa">Paused</span></td><td style="text-align:right;">AED 2,524</td><td style="text-align:right;opacity:.6;">300</td><td style="text-align:right;" class="cg">AED 8.40</td></tr>
+      <tr><td>Hair Services — Abu Dhabi <span class="bdg bac">Active</span></td><td style="text-align:right;">AED 1,570</td><td style="text-align:right;opacity:.6;">120</td><td style="text-align:right;" class="cg">AED 13.14</td></tr>
+      <tr><td>Hair Services — Dubai <span class="bdg bac">Active</span></td><td style="text-align:right;">AED 1,413</td><td style="text-align:right;opacity:.6;">35</td><td style="text-align:right;" class="cb">AED 40.42</td></tr>
+      <tr><td>Brand Campaign — Abu Dhabi <span class="bdg bac">Active</span></td><td style="text-align:right;">AED 535</td><td style="text-align:right;opacity:.6;">9</td><td style="text-align:right;" class="cb">AED 62.93</td></tr>
+      <tr><td>Brand Campaign — Dubai <span class="bdg bac">Active</span></td><td style="text-align:right;">AED 510</td><td style="text-align:right;opacity:.6;">14</td><td style="text-align:right;" class="cb">AED 37.73</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="two">
+  <div>
+    <span class="stab">Device split</span>
+    <div class="card">
+      <div class="cw" style="height:155px;"><canvas id="c2" role="img" aria-label="Mobile 91% of spend, desktop 8%, tablet 1%">Mobile dominates at 91%.</canvas></div>
+      <div class="leg" style="margin-top:8px;font-size:11px;">
+        <span><span class="ld" style="background:#2D2E37;"></span>Mobile 91%</span>
+        <span><span class="ld" style="background:#888780;"></span>Desktop 8%</span>
+        <span><span class="ld" style="background:#C4B5FD;"></span>Tablet 1%</span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <span class="stab">Age distribution</span>
+    <div class="card">
+      <div class="cw" style="height:155px;"><canvas id="c3" role="img" aria-label="25-34 and 35-44 each 33%, core demo 25-44 is 66%">Core demographic 25–44 = 66%.</canvas></div>
+      <div class="leg" style="margin-top:8px;font-size:11px;">
+        <span><span class="ld" style="background:#2D2E37;"></span>25–34: 33%</span>
+        <span><span class="ld" style="background:#363842;"></span>35–44: 33%</span>
+        <span><span class="ld" style="background:#888780;"></span>Other</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<span class="stab">Top keywords by spend</span>
+<div class="card">
+  <div class="kwr"><span class="kwn">hair salon</span><div class="kwbg"><div class="kwbf" style="width:100%;"></div></div><span class="kws">AED 1,323</span><span class="kwc">4.1%</span></div>
+  <div class="kwr"><span class="kwn">root touch up</span><div class="kwbg"><div class="kwbf" style="width:84%;background:#99F6E4;"></div></div><span class="kws">AED 1,111</span><span class="kwc" style="color:#0F6E56;">10.8%</span></div>
+  <div class="kwr"><span class="kwn">tara rose salon [exact]</span><div class="kwbg"><div class="kwbf" style="width:80%;"></div></div><span class="kws">AED 1,058</span><span class="kwc" style="color:#0F6E56;">25.8%</span></div>
+  <div class="kwr"><span class="kwn">tara rose salon [phrase]</span><div class="kwbg"><div class="kwbf" style="width:48%;"></div></div><span class="kws">AED 641</span><span class="kwc" style="color:#0F6E56;">27.0%</span></div>
+  <div class="kwr"><span class="kwn">tara rose beauty salon [exact]</span><div class="kwbg"><div class="kwbf" style="width:35%;"></div></div><span class="kws">AED 466</span><span class="kwc" style="color:#0F6E56;">19.5%</span></div>
+  <div class="kwr"><span class="kwn">women's hair salons near me</span><div class="kwbg"><div class="kwbf" style="width:17%;"></div></div><span class="kws">AED 220</span><span class="kwc">5.1%</span></div>
+</div>
+
+<span class="stab">Google Analytics — website overview</span>
+<div class="mg">
+  <div class="mc"><p class="ml">Active users</p><p class="mv">23K</p><p class="ms">Jan–Apr 2026</p></div>
+  <div class="mc"><p class="ml">New users</p><p class="mv">23K</p><p class="ms">97% new</p></div>
+  <div class="mc"><p class="ml">Total sessions</p><p class="mv">27.9K</p><p class="ms">all channels</p></div>
+  <div class="mc"><p class="ml">Avg. engagement</p><p class="mv">24s</p><p class="ms">per active user</p></div>
+  <div class="mc"><p class="ml">Form submits</p><p class="mv">881</p><p class="ms">key action</p></div>
+  <div class="mc"><p class="ml">Paid Search sessions</p><p class="mv">10.8K</p><p class="ms">39% of total</p></div>
+</div>
+
+<span class="stab">Traffic by channel — sessions</span>
+<div class="card">
+  <div class="chr"><span class="chn">Paid Search</span><div class="chb"><div class="chbf" style="width:100%;background:#2D2E37;"></div></div><span class="chv">10,814</span><span class="chk" style="color:#0F6E56;">39%</span></div>
+  <div class="chr"><span class="chn">Direct</span><div class="chb"><div class="chbf" style="width:76%;background:#363842;"></div></div><span class="chv">8,255</span><span class="chk">30%</span></div>
+  <div class="chr"><span class="chn">Organic Search</span><div class="chb"><div class="chbf" style="width:37%;background:#99F6E4;"></div></div><span class="chv">3,956</span><span class="chk" style="color:#0F6E56;">14%</span></div>
+  <div class="chr"><span class="chn">Paid Other</span><div class="chb"><div class="chbf" style="width:16%;background:#888780;"></div></div><span class="chv">1,774</span><span class="chk">6%</span></div>
+  <div class="chr"><span class="chn">Referral</span><div class="chb"><div class="chbf" style="width:9%;background:#C4B5FD;"></div></div><span class="chv">1,018</span><span class="chk">4%</span></div>
+  <div class="chr"><span class="chn">Paid Social</span><div class="chb"><div class="chbf" style="width:8%;background:#FFD4D9;"></div></div><span class="chv">865</span><span class="chk">3%</span></div>
+  <div class="chr"><span class="chn">Organic Social</span><div class="chb"><div class="chbf" style="width:7%;background:#EEF3C7;"></div></div><span class="chv">715</span><span class="chk">3%</span></div>
+</div>
+
+<span class="stab">Channel quality — engagement rate vs. avg. session time</span>
+<div class="card">
+  <div class="cw" style="height:230px;">
+    <canvas id="c4" role="img" aria-label="Engagement rate and session time by channel. Paid Social and Organic Search have longest session times. Paid Search has lowest engagement rate at 48%.">Channel quality comparison showing Paid Social and Organic Search as highest quality traffic.</canvas>
+  </div>
+  <div class="leg" style="margin-top:10px;">
+    <span><span class="ld" style="background:#2D2E37;"></span>Engagement rate %</span>
+    <span><span class="ld" style="background:#99F6E4;border:1px solid #0F6E56;"></span>Avg. session time (s)</span>
+  </div>
+</div>
+
+<span class="stab">Top events (user actions)</span>
+<div class="card">
+  <div class="ev-row"><span class="ev-name">page_view</span><div class="ev-bar"><div class="ev-barf" style="width:100%;"></div></div><span class="ev-val">39,184</span></div>
+  <div class="ev-row"><span class="ev-name">session_start</span><div class="ev-bar"><div class="ev-barf" style="width:71%;"></div></div><span class="ev-val">27,687</span></div>
+  <div class="ev-row"><span class="ev-name">first_visit</span><div class="ev-bar"><div class="ev-barf" style="width:58%;"></div></div><span class="ev-val">22,783</span></div>
+  <div class="ev-row"><span class="ev-name">user_engagement</span><div class="ev-bar"><div class="ev-barf" style="width:51%;"></div></div><span class="ev-val">19,831</span></div>
+  <div class="ev-row"><span class="ev-name">scroll</span><div class="ev-bar"><div class="ev-barf" style="width:23%;"></div></div><span class="ev-val">9,086</span></div>
+  <div class="ev-row"><span class="ev-name">file_download</span><div class="ev-bar"><div class="ev-barf" style="width:13%;background:#C4B5FD;"></div></div><span class="ev-val">5,211</span></div>
+  <div class="ev-row"><span class="ev-name">click</span><div class="ev-bar"><div class="ev-barf" style="width:12%;background:#C4B5FD;"></div></div><span class="ev-val">4,758</span></div>
+  <div class="ev-row"><span class="ev-name">form_submit ✦</span><div class="ev-bar"><div class="ev-barf" style="width:2%;background:#99F6E4;"></div></div><span class="ev-val" style="color:#0F6E56;font-weight:500;">881</span></div>
+</div>
+
+<span class="stab">Key findings for Morph</span>
+<div class="ins ins-d">CPA collapsed from ~AED 7 to AED 34 from March — directly tied to pausing Performance Max. Restoring or rebuilding this campaign should be priority #1.</div>
+<div class="ins ins-w">Dubai campaigns are 3× more expensive than Abu Dhabi. Hair Services Dubai CPA = AED 40 vs Abu Dhabi's AED 13. Needs dedicated strategy, not copy-paste.</div>
+<div class="ins ins-w">Paid Search drives 39% of all sessions but has the lowest engagement rate (48%) and only 24s avg. session time — traffic is coming but not converting well. Landing page is the likely culprit.</div>
+<div class="ins ins-d">91% of ad spend hits mobile users. With only 24s avg. engagement time, the mobile landing experience needs urgent review before scaling budget.</div>
+<div class="ins ins-g">Organic Search is the highest-quality traffic: 71% engagement rate, 38s avg. session. SEO is working quietly — worth protecting and amplifying.</div>
+<div class="ins ins-g">Paid Social has the longest avg. session time (40s) despite low volume (865 sessions). High-intent audience — underinvested channel for Dubai acquisition.</div>
+<div class="ins ins-l">881 form submits recorded as a key event — this is the conversion anchor. Morph needs to map this to actual booking/revenue data to validate CPA quality.</div>
+<div class="ins" style="border-left-color:var(--teal);">Audience targeting is solid: 96% female, 25–44 core demo = 66%. No changes needed — focus budget and creative, not targeting.</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const ink='#2D2E37',min='#E8E5DD',coral='#FF9B9B',teal='#99F6E4',lav='#C4B5FD',gray='#888780';
+
+new Chart(document.getElementById('c1'),{
+  data:{
+    labels:['Dec29','Jan5','Jan12','Jan19','Jan26','Feb2','Feb9','Feb16','Feb23','Mar2','Mar9','Mar16','Mar23','Mar30','Apr6','Apr13','Apr20','Apr27'],
+    datasets:[
+      {type:'bar',label:'Clicks',data:[450,1118,1257,1228,1659,1905,1477,1069,881,1083,854,523,331,254,214,219,131,124],backgroundColor:'rgba(45,46,55,0.15)',borderColor:ink,borderWidth:1,yAxisID:'y'},
+      {type:'line',label:'CPA',data:[8.19,6.73,6.84,6.46,6.74,7.38,7.00,7.92,4.97,5.71,9.70,8.71,12.08,34.21,29.17,30.57,9.86,10.67],borderColor:coral,backgroundColor:'transparent',pointBackgroundColor:coral,pointRadius:3,tension:0.35,yAxisID:'y2',borderDash:[4,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
+    x:{ticks:{font:{size:10,family:'Inter'},maxRotation:45,maxTicksLimit:9},grid:{display:false},border:{color:min}},
+    y:{position:'left',ticks:{font:{size:11,family:'Inter'},color:gray},grid:{color:min},border:{display:false},title:{display:true,text:'Clicks',font:{size:11},color:gray}},
+    y2:{position:'right',ticks:{font:{size:11,family:'Inter'},color:gray,callback:v=>'AED '+v},grid:{display:false},border:{display:false},title:{display:true,text:'CPA',font:{size:11},color:gray}}
+  }}
+});
+
+new Chart(document.getElementById('c2'),{
+  type:'doughnut',
+  data:{labels:['Mobile','Desktop','Tablet'],datasets:[{data:[10151,873,137],backgroundColor:[ink,gray,lav],borderWidth:3,borderColor:'#FAF8F3'}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'68%'}
+});
+
+new Chart(document.getElementById('c3'),{
+  type:'bar',
+  data:{labels:['18–24','25–34','35–44','45–54','55–64','65+'],datasets:[{data:[10.12,33.23,33.00,16.98,5.11,1.74],backgroundColor:[min,ink,'#363842',gray,lav,min],borderWidth:0,borderRadius:3}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
+    x:{ticks:{font:{size:10,family:'Inter'},color:gray},grid:{display:false},border:{color:min}},
+    y:{ticks:{font:{size:11,family:'Inter'},color:gray,callback:v=>v+'%'},grid:{color:min},border:{display:false}}
+  }}
+});
+
+new Chart(document.getElementById('c4'),{
+  type:'bar',
+  data:{
+    labels:['Paid Search','Direct','Organic Search','Paid Other','Paid Social','Organic Social'],
+    datasets:[
+      {label:'Engagement rate %',data:[47.5,40.9,71.5,33.9,48.4,60.1],backgroundColor:'rgba(45,46,55,0.75)',borderRadius:3,yAxisID:'y'},
+      {label:'Avg. session time (s)',data:[19.8,14.8,38.1,8.1,40.4,13.9],backgroundColor:teal,borderRadius:3,yAxisID:'y2'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
+    x:{ticks:{font:{size:10,family:'Inter'},color:gray,maxRotation:30},grid:{display:false},border:{color:min}},
+    y:{position:'left',ticks:{font:{size:11,family:'Inter'},color:gray,callback:v=>v+'%'},grid:{color:min},border:{display:false},title:{display:true,text:'Engagement %',font:{size:10},color:gray},max:100},
+    y2:{position:'right',ticks:{font:{size:11,family:'Inter'},color:gray,callback:v=>v+'s'},grid:{display:false},border:{display:false},title:{display:true,text:'Session time',font:{size:10},color:gray}}
+  }}
+});
+</script>
