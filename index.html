@@ -15,20 +15,21 @@
   --mineral: #E8E5DD;
   --border: #D9D5CC;
   --white: #FFFFFF;
-  --blush: #C9A99A;
-  --rose-dark: #8B4A4A;
-  --mid: #6B5050;
+  --blush: #9B8EA0;
+  --rose-dark: #2D2E37;
+  --mid: #6B6870;
   --teal: #99F6E4;
   --teal-t: #0F6E56;
   --lav: #C4B5FD;
   --lav-t: #3C3489;
   --coral: #FF9B9B;
   --lime: #EEF3C7;
-  --palette1: #8B4A4A;
-  --palette2: #C9A99A;
-  --palette3: #B07070;
-  --palette4: #D4B8B0;
-  --palette5: #6B5050;
+  --rose-acc: #FFD4D9;
+  --palette1: #2D2E37;
+  --palette2: #363842;
+  --palette3: #888780;
+  --palette4: #C4B5FD;
+  --palette5: #99F6E4;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,7 +46,7 @@ body {
 /* TOP HEADER */
 header {
   background: var(--ink);
-  padding: 22px 32px;
+  padding: 12px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,22 +58,22 @@ header {
 
 .header-brand h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 400;
   color: var(--cream);
   letter-spacing: 0.03em;
 }
 
 .header-brand p {
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   color: var(--blush);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .header-meta {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: rgba(250,248,243,0.4);
   letter-spacing: 0.06em;
   text-align: right;
@@ -91,8 +92,8 @@ header {
   border-right: 1px solid var(--border);
   padding: 28px 0;
   position: sticky;
-  top: 69px;
-  height: calc(100vh - 69px);
+  top: 52px;
+  height: calc(100vh - 52px);
   overflow-y: auto;
   flex-shrink: 0;
 }
@@ -127,8 +128,8 @@ header {
 
 .nav-item.active {
   background: var(--cream);
-  color: var(--rose-dark);
-  border-left-color: var(--rose-dark);
+  color: var(--ink);
+  border-left-color: var(--teal-t);
   font-weight: 500;
 }
 
@@ -140,7 +141,7 @@ header {
   flex-shrink: 0;
 }
 
-.nav-item.active .nav-dot { background: var(--rose-dark); }
+.nav-item.active .nav-dot { background: var(--teal-t); }
 
 /* MAIN CONTENT */
 .main-content {
@@ -161,7 +162,7 @@ header {
   gap: 16px;
   align-items: flex-end;
   position: sticky;
-  top: 69px;
+  top: 52px;
   z-index: 100;
 }
 
@@ -207,11 +208,11 @@ select:focus { border-color: var(--blush); }
 }
 
 .branch-check input { display: none; }
-.branch-check.checked { background: var(--rose-dark); border-color: var(--rose-dark); color: var(--white); }
+.branch-check.checked { background: var(--ink); border-color: var(--ink); color: var(--white); }
 
 .btn-apply {
   padding: 7px 18px;
-  background: var(--rose-dark);
+  background: var(--ink);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -256,7 +257,7 @@ select:focus { border-color: var(--blush); }
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
   font-weight: 400;
-  color: var(--rose-dark);
+  color: var(--ink);
   line-height: 1;
 }
 
@@ -286,7 +287,7 @@ select:focus { border-color: var(--blush); }
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem;
   font-weight: 400;
-  color: var(--rose-dark);
+  color: var(--ink);
   margin-bottom: 3px;
 }
 
@@ -313,7 +314,7 @@ select:focus { border-color: var(--blush); }
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem;
   font-weight: 400;
-  color: var(--rose-dark);
+  color: var(--ink);
   margin-bottom: 3px;
 }
 
@@ -344,7 +345,7 @@ tr:hover td { background: var(--cream); }
   display: inline-block;
   width: 20px; height: 20px;
   border-radius: 50%;
-  background: var(--rose-dark);
+  background: var(--ink);
   color: #fff;
   font-size: 0.65rem;
   font-weight: 500;
@@ -367,9 +368,9 @@ tr:hover td { background: var(--cream); }
 }
 
 .insight-box {
-  background: #FDF5F0;
-  border: 1px solid var(--blush);
-  border-left: 4px solid var(--rose-dark);
+  background: var(--cream);
+  border: 1px solid var(--mineral);
+  border-left: 4px solid var(--ink);
   border-radius: 10px;
   padding: 16px 20px;
   margin-bottom: 24px;
@@ -378,7 +379,7 @@ tr:hover td { background: var(--cream); }
   color: var(--ink);
 }
 
-.insight-box strong { color: var(--rose-dark); font-weight: 500; }
+.insight-box strong { color: var(--ink); font-weight: 500; }
 
 .loading {
   text-align: center;
@@ -728,7 +729,7 @@ const SUPABASE_URL = 'https://syzxjlmhnssddeymzvwc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_36v7iJofatGlPFDj04R65Q_953Wvuqw';
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const BRANCH_FULL = { KCA: 'Khalifa City A', SAA: 'Mamsha Al Saadiyat', MC: 'Motor City', AQ: 'Al Quoz' };
-const PALETTE = ['#8B4A4A','#C9A99A','#B07070','#D4B8B0','#6B5050','#E8DDD5','#2C1F1F','#A07878'];
+const PALETTE = ['#2D2E37','#99F6E4','#C4B5FD','#FF9B9B','#EEF3C7','#FFD4D9','#363842','#888780'];
 
 let chartInstances = {};
 
