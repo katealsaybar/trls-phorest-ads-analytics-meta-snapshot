@@ -178,6 +178,13 @@ header {
   color: #D4AF6E;
 }
 
+/* TRK OS button */
+.hnav-btn.os.active {
+  background: rgba(52, 197, 167, 0.12);
+  color: #34C5A7;
+  border-color: #34C5A7;
+}
+
 .hnav-dot {
   width: 6px;
   height: 6px;
@@ -1119,6 +1126,9 @@ select {
     <p>Performance Dashboard · Jan – Apr 2026</p>
   </div>
   <div class="header-nav">
+    <button class="hnav-btn os" id="hnav-os" onclick="switchMode('os')">
+     <span class="hnav-dot"></span>TRK OS
+    </button>
     <button class="hnav-btn strategy active" id="hnav-strategy" onclick="switchMode('strategy')">
       <span class="hnav-dot"></span>2026 Growth Strategy
     </button>
@@ -1880,6 +1890,15 @@ function switchStratView(view) {
   document.getElementById('snav-' + view).classList.add('active');
 }
 </script>
+
+<!-- ===== TRK OS MODE ===== -->
+<div class="mode-panel" id="mode-os" style="height:calc(100vh - 52px); overflow:hidden;">
+  <iframe
+    src="https://www.notion.so/TRK-OS-One-Source-of-Truth-34c75ef7d53d8190bf32c5eef8a19493"
+    style="width:100%; height:100%; border:none; display:block;"
+    allowfullscreen>
+  </iframe>
+</div>
 
 <!-- ===== BRAND MODE ===== -->
 <div class="mode-panel" id="mode-brand" style="height:calc(100vh - 52px); align-items:center; justify-content:center; flex-direction:column; gap:16px; background:var(--cream);">
