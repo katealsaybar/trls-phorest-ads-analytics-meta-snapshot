@@ -126,6 +126,24 @@ header {
   color: var(--coral);
 }
 
+.hnav-btn.brand.active {
+  background: rgba(212,175,110,0.13);
+  border-color: #D4AF6E;
+  color: #D4AF6E;
+}
+
+#mode-brand {
+  flex-direction: column;
+  height: calc(100vh - 56px);
+  overflow: hidden;
+}
+
+#mode-brand iframe {
+  width: 100%;
+  flex: 1;
+  border: none;
+}
+
 /* Brand Guidelines button */
 .hnav-btn.brand.active {
   background: rgba(212,175,110,0.13);
@@ -1839,6 +1857,14 @@ function switchStratView(view) {
       ↗ Open in Figma
     </a>
   </div>
+</div>
+
+<!-- ===== BRAND MODE ===== -->
+<div class="mode-panel" id="mode-brand">
+  <iframe
+    src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/make/O4P3HVdemUU628nntt4Bni/Brand-design"
+    allowfullscreen>
+  </iframe>
 </div>
 
 </body>
