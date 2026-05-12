@@ -1133,11 +1133,11 @@ select {
     <p>Performance Dashboard · Jan – Apr 2026</p>
   </div>
   <div class="header-nav">
-    <button class="hnav-btn strategy active" id="hnav-strategy" onclick="switchMode('strategy')">
-      <span class="hnav-dot"></span>2026 Growth Strategy
-    </button>
     <button class="hnav-btn links" id="hnav-links" onclick="switchMode('links')">
       <span class="hnav-dot"></span>Quick Links
+    </button>
+    <button class="hnav-btn strategy" id="hnav-strategy" onclick="switchMode('strategy')">
+      <span class="hnav-dot"></span>2026 Growth Strategy
     </button>
 
     <!-- ✦ NEW BUTTON -->
@@ -1372,7 +1372,7 @@ select {
 </div>
 
 <!-- ===== STRATEGY MODE ===== -->
-<div class="mode-panel active" id="mode-strategy">
+<div class="mode-panel" id="mode-strategy">
   <nav class="strategy-sidebar">
     <div class="sidebar-section">Growth Plan</div>
     <div class="strat-nav-item active" id="snav-targets" onclick="switchStratView('targets')">
@@ -1886,6 +1886,9 @@ function switchMode(mode) {
   document.getElementById('hnav-' + mode).classList.add('active');
   if (mode === 'data') applyFilters();
 }
+
+// Default to Quick Links on load
+switchMode('links');
 
 // ===== STRATEGY VIEW SWITCHING =====
 function switchStratView(view) {
